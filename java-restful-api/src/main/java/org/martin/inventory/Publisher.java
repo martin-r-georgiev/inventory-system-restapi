@@ -23,6 +23,7 @@ class Publisher {
 
         try {
             CustomApplicationConfig customApplicationConfig = new CustomApplicationConfig();
+            customApplicationConfig.register(new CORSFilter());
             // create and start a grizzly server
             HttpServer server = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, customApplicationConfig, true);
 
