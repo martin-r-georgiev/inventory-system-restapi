@@ -28,8 +28,25 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.+'
 
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.6.2'
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.6.0'
+
+    // Hibernate (JPA)
+    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.14.Final'
+    implementation 'mysql:mysql-connector-java:8.0.21'
+    testImplementation 'com.h2database:h2:1.4.200'
 }
 
 application {
     mainClassName 'org.martin.inventory.Publisher'
 }
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
+

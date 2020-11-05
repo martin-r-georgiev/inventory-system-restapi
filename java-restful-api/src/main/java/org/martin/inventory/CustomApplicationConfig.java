@@ -12,6 +12,8 @@ public class CustomApplicationConfig extends ResourceConfig
     {
         packages("org.martin.inventory.resources"); // Finding all resource endpoint classes
 
+        register(new ApplicationBinder());
+
         // Logging Exchanged HTTP Messages
         register(new LoggingFeature(Logger.getLogger(LoggingFeature.DEFAULT_LOGGER_NAME),
                 Level.INFO, LoggingFeature.Verbosity.PAYLOAD_ANY, LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));

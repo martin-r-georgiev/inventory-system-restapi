@@ -1,8 +1,9 @@
 package org.martin.inventory.resources;
 
 import org.martin.inventory.model.Item;
-import org.martin.inventory.repository.*;
+import org.martin.inventory.service.ItemManager;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import javax.ws.rs.Path;
@@ -16,22 +17,22 @@ public class ItemResource {
 
     @Context
     private UriInfo uriInfo;
-    private static final ItemRepository  itemRepository = new ItemRepository();
+
+    @Inject
+    private ItemManager manager;
 
     @GET //GET (./items/)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems() {
-        List<Item> items = itemRepository.getItems();
-
-        GenericEntity<List<Item>> entity = new GenericEntity<>(items) {};
+        GenericEntity<List<Item>> entity = new GenericEntity<>(manager.getAll()) {};
         return Response.ok(entity).build();
     }
 
     @GET //GET (./items/<id>)
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getItem(@PathParam("id") int itemId) {
-        Item item = itemRepository.getItem(itemId);
+    public Response getItem(@PathParam("id") Long itemId) {
+        Item item = manager.getById(itemId);
         if(item == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
         } else {
@@ -41,22 +42,18 @@ public class ItemResource {
 
     @POST //POST (./items/)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createItem(Item item) {
-        if(!itemRepository.addItem(item)) {
-            String msg = String.format("This item (ID: %s) already exists.", item.getId());
-            return Response.status(Response.Status.CONFLICT).entity(msg).build();
-        } else {
-            String url = String.format("%s/%s", uriInfo.getAbsolutePath(), item.getId());
-            URI uri = URI.create(url);
-            return Response.created(uri).build();
-        }
+    public Response createItem(ItemDTO item) {
+        manager.add(item.convertToEntity());
+        String url = String.format("%s/%s", uriInfo.getAbsolutePath(), item.getId());
+        URI uri = URI.create(url);
+        return Response.created(uri).build();
     }
 
-    @PUT //PUT (./items/)
+    @PUT //PUT (./items/<id>)
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateItem(Item item) {
-        if (itemRepository.updateItem(item)) {
+    public Response updateItem(@PathParam("id") Long itemId, ItemDTO item) {
+        if (manager.update(itemId, item.convertToEntity())) {
             return Response.noContent().build();
         } else {
             String msg = "Please provide a valid item id.";
@@ -66,8 +63,8 @@ public class ItemResource {
 
     @DELETE //DELETE (./items/<id>)
     @Path("{id}")
-    public Response deleteItem(@PathParam("id") int itemId) {
-        itemRepository.deleteItem(itemRepository.getItem(itemId));
+    public Response deleteItem(@PathParam("id") Long itemId) {
+        manager.delete(manager.getById(itemId));
         return Response.noContent().build();
     }
 }
