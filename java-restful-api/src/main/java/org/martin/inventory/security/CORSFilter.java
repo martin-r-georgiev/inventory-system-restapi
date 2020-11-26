@@ -1,4 +1,4 @@
-package org.martin.inventory;
+package org.martin.inventory.security;
 
 import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;

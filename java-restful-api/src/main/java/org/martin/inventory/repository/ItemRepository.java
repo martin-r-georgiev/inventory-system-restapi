@@ -1,11 +1,12 @@
 package org.martin.inventory.repository;
 
 import org.martin.inventory.model.Item;
+import org.martin.inventory.model.User;
 
 import javax.persistence.*;
 import java.util.List;
 
-public class ItemRepository {
+public class ItemRepository implements IRepository<Item, Long> {
 
     EntityManager entityManager;
 
@@ -28,8 +29,7 @@ public class ItemRepository {
     }
 
     public Item update(Item item) {
-        Item merged = entityManager.merge(item);
-        return merged;
+        return entityManager.merge(item);
     }
 
     public void delete(Item item) {

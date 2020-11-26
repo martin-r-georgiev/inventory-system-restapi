@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 public class ItemManager {
-    private static final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("item-persistence");
+    private static final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("inventory-persistence");
     EntityManager entityManager = managerFactory.createEntityManager();
 
     @Inject
@@ -30,14 +30,14 @@ public class ItemManager {
         return repository.getById(id);
     }
 
-    //CRUD
+    // CRUD
 
     public boolean add(Item item) {
         entityManager.getTransaction().begin();
         repository.save(item);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return (item != null) ? true : false;
+        return item != null;
     }
 
     public boolean update(Long itemId, Item item) {
@@ -50,7 +50,7 @@ public class ItemManager {
         Item updated = repository.update(found);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return (updated != null) ? true : false;
+        return updated != null;
     }
 
     public void delete(Item item) {

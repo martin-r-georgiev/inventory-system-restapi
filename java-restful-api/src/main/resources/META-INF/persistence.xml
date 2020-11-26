@@ -2,12 +2,13 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-    <persistence-unit name="item-persistence" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="inventory-persistence" transaction-type="RESOURCE_LOCAL">
         <!-- Persistence provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Entity classes -->
         <class>org.martin.inventory.model.Item</class>
+        <class>org.martin.inventory.model.User</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martin?serverTimezone=UTC"/>

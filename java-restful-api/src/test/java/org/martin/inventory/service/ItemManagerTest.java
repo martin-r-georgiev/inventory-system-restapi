@@ -35,7 +35,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    public void AccountCreationTest() {
+    void AccountCreationTest() {
         //Assign
         Item item = new Item("Item", 250);
 
@@ -49,7 +49,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    public void AccountUpdateTest() {
+    void AccountUpdateTest() {
         //Assign
         Item item = new Item("Item", 250);
         Long itemId = 5L;

@@ -2,13 +2,10 @@ package org.martin.inventory;
 
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.martin.inventory.security.CORSFilter;
 
-import javax.ws.rs.core.UriBuilder;
-import java.awt.event.KeyEvent;
-import java.io.Console;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
