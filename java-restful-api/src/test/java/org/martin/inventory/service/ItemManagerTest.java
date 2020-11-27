@@ -27,7 +27,7 @@ public class ItemManagerTest {
     private EntityTransaction transaction;
 
     @InjectMocks
-    private ItemManager manager = new ItemManager();
+    private ItemManager manager;
 
     @BeforeEach
     private void setup() {
@@ -35,7 +35,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void AccountCreationTest() {
+    void ItemCreationTest() {
         //Assign
         Item item = new Item("Item", 250);
 
@@ -49,7 +49,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void AccountUpdateTest() {
+    void ItemUpdateTest() {
         //Assign
         Item item = new Item("Item", 250);
         Long itemId = 5L;
