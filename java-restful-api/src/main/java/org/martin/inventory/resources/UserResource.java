@@ -1,14 +1,13 @@
 package org.martin.inventory.resources;
 
 import org.martin.inventory.annotations.Secured;
+import org.martin.inventory.model.Item;
+import org.martin.inventory.model.User;
 import org.martin.inventory.service.UserManager;
 import org.martin.inventory.utils.JWTUtil;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import java.net.URI;
@@ -60,8 +59,22 @@ public class UserResource {
         return Response.ok().header(HttpHeaders.AUTHORIZATION,"Bearer " + newToken).build();
     }
 
-    @POST //POST (./users/)
+    @GET
     @Secured
+    @Path("/user")
+    public Response verifyUserLogin(@Context HttpHeaders requestHeaders) {
+        final String authHeader = requestHeaders.getHeaderString(HttpHeaders.AUTHORIZATION);
+        final String username = jwtUtil.extractUsername(authHeader.substring(AUTHENTICATION_SCHEME.length()).trim());
+        User user = manager.getByUsername(username);
+        if(user == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
+        } else {
+            UserDetails output = new UserDetails(user.getUsername());
+            return Response.ok(output).build();
+        }
+    }
+
+    @POST //POST (./users/)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(UserDTO user) {
         try {
