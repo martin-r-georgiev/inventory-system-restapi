@@ -1,6 +1,5 @@
 package org.martin.inventory.repository;
 
-import org.martin.inventory.model.Item;
 import org.martin.inventory.model.User;
 
 import javax.persistence.EntityManager;

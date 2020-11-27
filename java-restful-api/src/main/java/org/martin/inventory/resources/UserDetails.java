@@ -1,8 +1,5 @@
 package org.martin.inventory.resources;
 
-import org.martin.inventory.model.Item;
-import org.martin.inventory.model.User;
-
 import java.util.Objects;
 import java.util.UUID;
 
@@ -31,6 +28,16 @@ public class UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof UserDTO)) return false;
+
+        final UserDetails other = (UserDetails) obj;
+        return Objects.equals(username, other.getUsername());
     }
 
     @Override

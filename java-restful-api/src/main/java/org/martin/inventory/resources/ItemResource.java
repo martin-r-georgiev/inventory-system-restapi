@@ -4,7 +4,6 @@ import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.Item;
 import org.martin.inventory.service.ItemManager;
 
-import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -25,7 +24,7 @@ public class ItemResource {
 
     @GET //GET (./items/)
     @Secured
-    @PermitAll
+//    @PermitAll - To be re-added when user role authorization is complete
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems() {
         GenericEntity<List<Item>> entity = new GenericEntity<>(manager.getAll()) {};
@@ -35,7 +34,7 @@ public class ItemResource {
     @GET //GET (./items/<id>)
     @Secured
     @Path("{id}")
-    @PermitAll
+//    @PermitAll - To be re-added when user role authorization is complete
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItem(@PathParam("id") Long itemId) {
         Item item = manager.getById(itemId);

@@ -1,8 +1,6 @@
 package org.martin.inventory.service;
 
-import org.martin.inventory.model.Item;
 import org.martin.inventory.model.User;
-import org.martin.inventory.repository.ItemRepository;
 import org.martin.inventory.repository.UserRepository;
 
 import javax.annotation.PostConstruct;

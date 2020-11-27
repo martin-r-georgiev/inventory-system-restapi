@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 public class JWTUtil {
 
-    private final String SECRET_KEY = "martin-secret-key";
+    private final static String SECRET_KEY = "martin-secret-key";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -21,11 +21,11 @@ public class JWTUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public Boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, String username) {
+    public boolean validateToken(String token, String username) {
         final String subject = extractUsername(token);
         return (subject.equals(username) && !isTokenExpired(token));
     }

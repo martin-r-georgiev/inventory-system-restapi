@@ -1,7 +1,6 @@
 package org.martin.inventory.resources;
 
 import org.martin.inventory.annotations.Secured;
-import org.martin.inventory.model.Item;
 import org.martin.inventory.model.User;
 import org.martin.inventory.service.UserManager;
 import org.martin.inventory.utils.JWTUtil;

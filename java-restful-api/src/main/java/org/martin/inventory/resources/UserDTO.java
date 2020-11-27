@@ -42,6 +42,16 @@ public class UserDTO {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof UserDTO)) return false;
+
+        final UserDTO other = (UserDTO) obj;
+        return Objects.equals(username, other.getUsername()) && Objects.equals(password, other.getPassword());
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(username, password);
     }
