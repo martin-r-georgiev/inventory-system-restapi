@@ -11,5 +11,15 @@ D:/Archive/University/sem3/ITS/inventory-system-backend/java-restful-api/src/tes
       <jdbc-driver>org.h2.Driver</jdbc-driver>
       <jdbc-url>jdbc:h2:mem:bank</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="inventory-persistence/Hibernate" uuid="7fac0897-2639-493e-8c15-9f281a6adffe">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/Archive/University/sem3/ITS/inventory-system-backend/java-restful-api/src/test/resources/META-INF/persistence.xml</remarks>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:mem:bank</jdbc-url>
+    </data-source>
   </component>
 </project>

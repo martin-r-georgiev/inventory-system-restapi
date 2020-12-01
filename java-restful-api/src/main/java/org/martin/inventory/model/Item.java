@@ -3,6 +3,7 @@ package org.martin.inventory.model;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @SelectBeforeUpdate
@@ -12,7 +13,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
+
+    @NotNull
     private int quantity;
 
     public Item() {

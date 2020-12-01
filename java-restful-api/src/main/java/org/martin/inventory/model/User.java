@@ -4,46 +4,46 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
 @SelectBeforeUpdate
 public class User {
-
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
-
     @Id
+    @NotNull
     private String username;
+
+    @NotNull
     private String password;
 
     public User() {
     }
 
     public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public UUID getId() {
-        return id;
+        if(! username.isEmpty()) this.username = username;
+        else
+        {
+            throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty name value");
+        }
+        if(! password.isEmpty()) this.password = password;
+        else
+        {
+            throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty password value");
+        }
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public boolean setPassword(String password) {
+        if (password.isEmpty()) return false;
         this.password = password;
+        return true;
     }
 }

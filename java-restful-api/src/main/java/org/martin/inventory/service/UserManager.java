@@ -29,10 +29,6 @@ public class UserManager {
         return repository.getAll();
     }
 
-    public User getById(UUID id) {
-        return repository.getById(id);
-    }
-
     public User getByUsername(String username) {
         return repository.getByUsername(username);
     }
@@ -47,11 +43,10 @@ public class UserManager {
         return user != null;
     }
 
-    public boolean update(UUID userId, User user) {
+    public boolean update(String username, User user) {
         entityManager.getTransaction().begin();
-        User found = getById(userId);
+        User found = getByUsername(username);
         if (found != null) {
-            found.setUsername(user.getUsername());
             found.setPassword(user.getPassword());
         }
         User updated = repository.update(found);
