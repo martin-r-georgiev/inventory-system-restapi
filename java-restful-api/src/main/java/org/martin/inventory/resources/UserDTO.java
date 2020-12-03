@@ -1,29 +1,15 @@
 package org.martin.inventory.resources;
 
+import org.martin.inventory.UserRole;
 import org.martin.inventory.model.User;
 
 import java.util.*;
 
 public class UserDTO {
 
-    private UUID id;
     private String username;
     private String password;
-
-    public UserDTO() {
-
-    }
-
-    public UserDTO(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) { this.id = id; }
+    private UUID warehouseId;
 
     public String getUsername() {
         return username;
@@ -41,6 +27,10 @@ public class UserDTO {
         this.password = password;
     }
 
+    public UUID getWarehouseId() { return warehouseId; }
+
+    public void setWarehouseId(UUID warehouseId) { this.warehouseId = warehouseId; }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -48,15 +38,17 @@ public class UserDTO {
         if (!(obj instanceof UserDTO)) return false;
 
         final UserDTO other = (UserDTO) obj;
-        return Objects.equals(username, other.getUsername()) && Objects.equals(password, other.getPassword());
+        return Objects.equals(username, other.getUsername())
+                && Objects.equals(password, other.getPassword())
+                && Objects.equals(warehouseId, other.getWarehouseId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password);
+        return Objects.hash(username, password, warehouseId);
     }
 
-    public User convertToEntity() {
-        return new User(username, password);
+    public User convertToEntity(UserRole role) {
+        return new User(username, password, role, warehouseId);
     }
 }

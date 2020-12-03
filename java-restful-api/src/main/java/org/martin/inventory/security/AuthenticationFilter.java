@@ -6,6 +6,9 @@ import org.martin.inventory.service.UserManager;
 import org.martin.inventory.utils.JWTUtil;
 
 import javax.annotation.Priority;
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
@@ -16,6 +19,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Secured
 @Provider
@@ -60,62 +67,30 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             return;
         }
 
-        // OLD
+        /* Authorization */
+        // Role Authorization - User, Manager, Admin
 
-//        /* Authentication */
-//        // Credentials verification
-//
-//        final MultivaluedMap<String, String> headers = requestContext.getHeaders();
-//        // Authorization header data retrieval
-//        final List<String> authorization = headers.get(HttpHeaders.AUTHORIZATION);
-//
-//        // Return Response (UNAUTHORIZED) if the authorization header is not present
-//        if (authorization == null || authorization.isEmpty()) {
-//            Response response = Response.status(Response.Status.UNAUTHORIZED).entity("Missing username and/or password.").build();
-//            requestContext.abortWith(response);
-//            return;
-//        }
-//
-//        // Retrieval of encoded username and password
-//        final String encodedCredentials = authorization.get(0).replaceFirst(AUTHENTICATION_SCHEME + " ", "");
-//        // Decoding username and password into one string
-//        String credentials = new String(Base64.getDecoder().decode(encodedCredentials.getBytes()));
-//        // Split username and password tokens in credentials
-//        final StringTokenizer tokenizer = new StringTokenizer(credentials, ":");
-//        final String username = tokenizer.nextToken();
-//        final String password = tokenizer.nextToken();
-//
-//        // Check if username and password are valid
-//        if (!isValidUser(username, password)) {
-//            Response response = Response.status(Response.Status.UNAUTHORIZED).entity("Invalid username and/or password.").build();
-//            requestContext.abortWith(response);
-//            return;
-//        }
+        /* Get information about the service method which is being called. This information includes the annotated/permitted roles. */
+        Method method = resourceInfo.getResourceMethod();
+        if (method.isAnnotationPresent(PermitAll.class)) return;
+        // if access is denied for all: deny access
+        if (method.isAnnotationPresent(DenyAll.class)) {
+            Response response = Response.status(Response.Status.FORBIDDEN).build();
+            requestContext.abortWith(response);
+            return;
+        }
 
-//        /* Authorization */
-//        // Role Authorization - Workers and Managers
-//
-//        /* Get information about the service method which is being called. This information includes the annotated/permitted roles. */
-//        Method method = resourceInfo.getResourceMethod();
-//        if (method.isAnnotationPresent(PermitAll.class)) return;
-//        // if access is denied for all: deny access
-//        if (method.isAnnotationPresent(DenyAll.class)) {
-//            Response response = Response.status(Response.Status.FORBIDDEN).build();
-//            requestContext.abortWith(response);
-//            return;
-//        }
-//
-//        if (method.isAnnotationPresent(RolesAllowed.class)) {
-//            // get allowed roles for this method
-//            RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
-//            Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
-//            /* isUserAllowed : implement this method to check if this user has any of the roles in the rolesSet if not isUserAllowed abort the requestContext with FORBIDDEN response*/
-//            if (!isUserAllowed(username, password, rolesSet)) {
-//                Response response = Response.status(Response.Status.FORBIDDEN).build();
-//                requestContext.abortWith(response);
-//                return;
-//            }
-//        }
+        if (method.isAnnotationPresent(RolesAllowed.class)) {
+            // get allowed roles for this method
+            RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
+            Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
+            /* isUserAllowed : implement this method to check if this user has any of the roles in the rolesSet if not isUserAllowed abort the requestContext with FORBIDDEN response*/
+            if (!isUserAllowed(token, rolesSet)) {
+                Response response = Response.status(Response.Status.FORBIDDEN).build();
+                requestContext.abortWith(response);
+                return;
+            }
+        }
     }
 
     public static boolean isTokenBasedAuthentication(String authorizationHeader) {
@@ -143,8 +118,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         return found != null;
     }
 
-    //    private boolean isUserAllowed(String username, String password, Set<String> rolesSet) {
-    //        // TODO: Check for user role or token
-    //        return true;
-    //    }
+    private boolean isUserAllowed(String token, Set<String> rolesSet) {
+        return rolesSet.contains(jwtUtil.extractRole(token).toString());
+    }
 }

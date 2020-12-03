@@ -5,22 +5,19 @@ import java.util.UUID;
 
 public class UserDetails {
 
-    private UUID id;
     private String username;
+    private UUID warehouseId;
+    private String role;
 
     public UserDetails() {
 
     }
 
-    public UserDetails(String username) {
+    public UserDetails(String username, UUID warehouseId, String role) {
         this.username = username;
+        this.warehouseId = warehouseId;
+        this.role = role;
     }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) { this.id = id; }
 
     public String getUsername() {
         return username;
@@ -30,6 +27,18 @@ public class UserDetails {
         this.username = username;
     }
 
+    public UUID getWarehouseId() { return warehouseId; }
+
+    public void setWarehouseId(UUID warehouseId) { this.warehouseId = warehouseId; }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -37,11 +46,13 @@ public class UserDetails {
         if (!(obj instanceof UserDTO)) return false;
 
         final UserDetails other = (UserDetails) obj;
-        return Objects.equals(username, other.getUsername());
+        return Objects.equals(username, other.getUsername())
+                && Objects.equals(warehouseId, other.getWarehouseId())
+                && Objects.equals(role, other.getRole());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username);
+        return Objects.hash(username, warehouseId, role);
     }
 }

@@ -1,5 +1,6 @@
 package org.martin.inventory.service;
 
+import org.martin.inventory.UserRole;
 import org.martin.inventory.model.User;
 import org.martin.inventory.repository.UserRepository;
 
@@ -29,9 +30,7 @@ public class UserManager {
         return repository.getAll();
     }
 
-    public User getByUsername(String username) {
-        return repository.getByUsername(username);
-    }
+    public User getByUsername(String username) { return repository.getById(username); }
 
     // CRUD
 
@@ -48,6 +47,7 @@ public class UserManager {
         User found = getByUsername(username);
         if (found != null) {
             found.setPassword(user.getPassword());
+            found.setWarehouseId(user.getWarehouseId());
         }
         User updated = repository.update(found);
         entityManager.getTransaction().commit();
@@ -64,14 +64,16 @@ public class UserManager {
 
     // Authentication
 
-    public void authenticate(String username, String password) {
+    public UserRole authenticate(String username, String password) {
         Query query = entityManager.createQuery("FROM User WHERE username = :user AND password = :pass", User.class);
         query.setParameter("user", username);
         query.setParameter("pass", password);
-        List<User> resultSet = query.getResultList();
+        query.setFirstResult(0).setMaxResults(1);
+        User result = (User) query.getSingleResult();
 
-        if (resultSet.isEmpty()) {
+        if (result == null) {
             throw new NotAuthorizedException("Failed to authenticate user.");
         }
+        return result.getRole();
     }
 }

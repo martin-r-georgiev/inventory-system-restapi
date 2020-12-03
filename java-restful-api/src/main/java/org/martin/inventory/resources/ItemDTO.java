@@ -2,11 +2,14 @@ package org.martin.inventory.resources;
 
 import org.martin.inventory.model.Item;
 
+import java.util.UUID;
+
 public class ItemDTO {
 
     private Long id;
     private String name;
     private int quantity;
+    private UUID warehouseId;
 
     public Long getId() {
         return id;
@@ -32,8 +35,12 @@ public class ItemDTO {
         return true;
     }
 
+    public UUID getWarehouseId() { return warehouseId; }
+
+    public void setWarehouseId(UUID warehouseId) { this.warehouseId = warehouseId; }
+
     public Item convertToEntity() {
-        return new Item(name, quantity);
+        return new Item(name, quantity, warehouseId);
     }
 }
 

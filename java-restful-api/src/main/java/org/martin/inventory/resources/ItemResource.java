@@ -2,7 +2,10 @@ package org.martin.inventory.resources;
 
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.Item;
+import org.martin.inventory.model.Warehouse;
 import org.martin.inventory.service.ItemManager;
+import org.martin.inventory.service.WarehouseManager;
+import org.martin.inventory.utils.UUIDUtils;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -20,36 +23,66 @@ public class ItemResource {
     private UriInfo uriInfo;
 
     @Inject
-    private ItemManager manager;
+    private ItemManager itemManager;
+
+    @Inject
+    private WarehouseManager whManager;
 
     @GET //GET (./items/)
     @Secured
 //    @PermitAll - To be re-added when user role authorization is complete
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems() {
-        GenericEntity<List<Item>> entity = new GenericEntity<>(manager.getAll()) {};
+        GenericEntity<List<Item>> entity = new GenericEntity<>(itemManager.getAll()) {};
         return Response.ok(entity).build();
     }
 
-    @GET //GET (./items/<id>)
+    @GET //GET (./items/<warehouse id>)
     @Secured
-    @Path("{id}")
+    @Path("/warehouse")
 //    @PermitAll - To be re-added when user role authorization is complete
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getItem(@PathParam("id") Long itemId) {
-        Item item = manager.getById(itemId);
-        if(item == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
-        } else {
+    public Response getAllWarehouses() {
+        GenericEntity<List<Warehouse>> entity = new GenericEntity<>(whManager.getAll()) {};
+        return Response.ok(entity).build();
+    }
+
+    @GET //GET (./items/<warehouse id>)
+    @Secured
+    @Path("{wh_id}")
+//    @PermitAll - To be re-added when user role authorization is complete
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getWarehouseItems(@PathParam("wh_id") String whId) {
+        List<Item> items = whManager.getWarehouseItems(UUIDUtils.Dashify(whId));
+        if (items.size() > 0) {
+            GenericEntity<List<Item>> entity = new GenericEntity<>(items) {};
+            return Response.ok(entity).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).entity("The requested warehouse was not found.").build();
+        }
+    }
+
+    @GET //GET (./items/<warehouse id>/<id>)
+    @Secured
+    @Path("{wh_id}/{id}")
+//    @PermitAll - To be re-added when user role authorization is complete
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getItem(@PathParam("wh_id") String whId, @PathParam("id") int index) {
+        try {
+            Item item = whManager.getWarehouseItems(UUIDUtils.Dashify(whId)).get(index);
             return Response.ok(item).build();
+        } catch ( IndexOutOfBoundsException e ) {
+            return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
         }
     }
 
     @POST //POST (./items/)
     @Secured
+    @Path("{wh_id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createItem(ItemDTO item) {
-        manager.add(item.convertToEntity());
+    public Response createItem(@PathParam("wh_id") String whId, ItemDTO item) {
+        itemManager.add(item.convertToEntity());
         String url = String.format("%s/%s", uriInfo.getAbsolutePath(), item.getId());
         URI uri = URI.create(url);
         return Response.created(uri).build();
@@ -60,7 +93,7 @@ public class ItemResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateItem(@PathParam("id") Long itemId, ItemDTO item) {
-        if (manager.update(itemId, item.convertToEntity())) {
+        if (itemManager.update(itemId, item.convertToEntity())) {
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a valid item id.").build();
@@ -72,7 +105,7 @@ public class ItemResource {
     @Path("{id}")
     public Response deleteItem(@PathParam("id") Long itemId) {
         try {
-            manager.delete(manager.getById(itemId));
+            itemManager.delete(itemManager.getById(itemId));
             return Response.noContent().build();
         }
         catch (Exception ex) {

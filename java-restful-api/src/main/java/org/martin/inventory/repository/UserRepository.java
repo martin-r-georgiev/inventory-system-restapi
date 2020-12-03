@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.UUID;
 
-public class UserRepository implements IRepository<User, UUID> {
+public class UserRepository implements IRepository<User, String> {
     EntityManager entityManager;
 
     public void setEntityManager(EntityManager entityManager) {
@@ -17,15 +17,7 @@ public class UserRepository implements IRepository<User, UUID> {
         return entityManager.createQuery("FROM User", User.class).getResultList();
     }
 
-    public User getById(UUID id) {
-        return entityManager.find(User.class, id);
-    }
-
-    public User getByUsername(String username)  {
-        return entityManager.createQuery("FROM User WHERE username = :user", User.class)
-                .setParameter("user", username)
-                .getSingleResult();
-    }
+    public User getById(String username) { return entityManager.find(User.class, username); }
 
     // CRUD
     public User save(User user) {

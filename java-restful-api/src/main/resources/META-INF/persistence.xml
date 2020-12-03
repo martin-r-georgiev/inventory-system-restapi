@@ -9,6 +9,7 @@
         <!-- Entity classes -->
         <class>org.martin.inventory.model.Item</class>
         <class>org.martin.inventory.model.User</class>
+        <class>org.martin.inventory.model.Warehouse</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martin?serverTimezone=UTC"/>

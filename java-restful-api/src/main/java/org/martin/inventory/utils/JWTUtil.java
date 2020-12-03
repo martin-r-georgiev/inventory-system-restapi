@@ -3,6 +3,7 @@ package org.martin.inventory.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.martin.inventory.UserRole;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -15,6 +16,11 @@ public class JWTUtil {
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public UserRole extractRole(String token) {
+        final Claims claims = extractAllClaims(token);
+        return UserRole.valueOf((String) claims.get("role"));
     }
 
     public Date extractExpiration(String token) {
@@ -39,13 +45,14 @@ public class JWTUtil {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, UserRole role) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, username);
+        return createToken(claims, username, role.toString());
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, String subject, String role) {
         return Jwts.builder().setClaims(claims).setSubject(subject)
+                .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7)) // Expires after a week
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
