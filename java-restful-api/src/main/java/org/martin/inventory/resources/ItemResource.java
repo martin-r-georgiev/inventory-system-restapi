@@ -14,6 +14,7 @@ import javax.ws.rs.Path;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 
 @Path("/items")
@@ -37,7 +38,8 @@ public class ItemResource {
         return Response.ok(entity).build();
     }
 
-    @GET //GET (./items/<warehouse id>)
+    // TODO: Delete temporary resource
+    @GET //GET (./items/warehouse)
     @Secured
     @Path("/warehouse")
 //    @PermitAll - To be re-added when user role authorization is complete
@@ -77,15 +79,20 @@ public class ItemResource {
         }
     }
 
-    @POST //POST (./items/)
+    @POST //POST (./items/<warehouse id>)
     @Secured
     @Path("{wh_id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createItem(@PathParam("wh_id") String whId, ItemDTO item) {
-        itemManager.add(item.convertToEntity());
-        String url = String.format("%s/%s", uriInfo.getAbsolutePath(), item.getId());
-        URI uri = URI.create(url);
-        return Response.created(uri).build();
+        UUID warehouseId = UUID.fromString(UUIDUtils.Dashify(whId));
+        if (whManager.exists(warehouseId)) {
+            item.setWarehouseId(warehouseId);
+            itemManager.add(item.convertToEntity());
+            return Response.status(Response.Status.CREATED).entity("New item successfully added.").build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).entity("The target warehouse was not found.").build();
+        }
     }
 
     @PUT //PUT (./items/<id>)

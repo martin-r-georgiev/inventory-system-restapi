@@ -39,7 +39,7 @@ public class Item {
         {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty name value");
         }
-        if (quantity > 0) this.quantity = quantity;
+        if (quantity >= 0) this.quantity = quantity;
         else {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with a negative quantity value");
         }
@@ -51,7 +51,7 @@ public class Item {
         {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty name value");
         }
-        if (quantity > 0) this.quantity = quantity;
+        if (quantity >= 0) this.quantity = quantity;
         else {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with a negative quantity value");
         }

@@ -31,6 +31,8 @@ public class WarehouseManager {
 
     public Warehouse getById(UUID id) { return repository.getById(id); }
 
+    public boolean exists(UUID id) { return repository.exists(id); }
+
     // CRUD
 
     public boolean add(Warehouse warehouse) {
