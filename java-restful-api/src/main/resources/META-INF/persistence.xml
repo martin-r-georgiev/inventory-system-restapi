@@ -10,12 +10,14 @@
         <class>org.martin.inventory.model.Item</class>
         <class>org.martin.inventory.model.User</class>
         <class>org.martin.inventory.model.Warehouse</class>
+        <class>org.martin.inventory.model.ItemHistoryEntry</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/martin?serverTimezone=UTC"/>
             <property name="javax.persistence.jdbc.password" value="admin"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
 
             <!-- DON'T USE THIS IN PRODUCTION -->

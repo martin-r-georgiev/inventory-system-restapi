@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class WarehouseRepository implements IRepository<Warehouse, UUID> {
+
     EntityManager entityManager;
 
     public void setEntityManager(EntityManager entityManager) {

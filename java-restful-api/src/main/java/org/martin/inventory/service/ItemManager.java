@@ -40,7 +40,7 @@ public class ItemManager {
         return item != null;
     }
 
-    public boolean update(Long itemId, Item item) {
+    public Item update(Long itemId, Item item) {
         entityManager.getTransaction().begin();
         Item found = getById(itemId);
         if (found != null) {
@@ -50,7 +50,7 @@ public class ItemManager {
         Item updated = repository.update(found);
         entityManager.getTransaction().commit();
         entityManager.close();
-        return updated != null;
+        return updated;
     }
 
     public void delete(Item item) {
