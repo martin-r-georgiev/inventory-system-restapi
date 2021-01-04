@@ -1,14 +1,17 @@
 package org.martin.inventory;
 
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
-import org.glassfish.grizzly.websockets.WebSocketAddOn;
 import org.glassfish.grizzly.websockets.WebSocketEngine;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.tyrus.container.grizzly.server.WebSocketAddOn;
+import org.glassfish.tyrus.server.Server;
 import org.martin.inventory.security.CORSFilter;
-import org.martin.inventory.websockets.ChatWebSocket;
+import org.martin.inventory.websockets.ChatEndpoint;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +24,8 @@ class Publisher {
     private static final URI BASE_URI = URI.create("http://localhost:9090/inventory/");
 
     public static void main(String[] args) {
+
+        Server wsServer = new Server("localhost", 9000, "/ws", null, ChatEndpoint.class);
 
         try {
             CustomApplicationConfig customApplicationConfig = new CustomApplicationConfig();
@@ -37,25 +42,30 @@ class Publisher {
                 System.out.println(getOperation);
             }
 
-            StaticHttpHandler staticHandler = new StaticHttpHandler("static");
-            staticHandler.setFileCacheEnabled(false);
-            server.getServerConfiguration().addHttpHandler(staticHandler,"/static/");
+            // Starting websocket server
+            wsServer.start();
 
-            // Create websocket addon
-            WebSocketAddOn webSocketAddOn = new WebSocketAddOn();
-            server.getListeners().forEach(listener -> { listener.registerAddOn(webSocketAddOn);});
+//            StaticHttpHandler staticHandler = new StaticHttpHandler("static");
+//            staticHandler.setFileCacheEnabled(false);
+//            server.getServerConfiguration().addHttpHandler(staticHandler,"/static/");
+//
+//            // Create websocket addon
+//            WebSocketAddOn webSocketAddon = new WebSocketAddOn();
+//            server.getListeners().forEach(listener -> {
+//                listener.registerAddOn(webSocketAddon);
+//            });
+//
+//            // register my websocket app
+//            ChatWebSocket webSocketApp = new ChatWebSocket();
+//            WebSocketEngine.getEngine().register("/ws", "/chat", webSocketApp);
 
-            // register my websocket app
-            ChatWebSocket webSocketApp = new ChatWebSocket();
-            WebSocketEngine.getEngine().register("/ws", "/chat", webSocketApp);
-
-            // Now start the server
+            // Starting HTTP server
             server.start();
 
             System.out.println("Press enter to stop the server...");
             System.in.read();
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Publisher.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
