@@ -33,18 +33,6 @@ public class Item {
 
     }
 
-    public Item(String name, int quantity) {
-        if(! name.isEmpty()) this.name = name;
-        else
-        {
-            throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty name value");
-        }
-        if (quantity >= 0) this.quantity = quantity;
-        else {
-            throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with a negative quantity value");
-        }
-    }
-
     public Item(String name, int quantity, UUID warehouseId) {
         if(! name.isEmpty()) this.name = name;
         else

@@ -13,9 +13,11 @@ import org.mockito.Mock;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemManagerTest {
+    UUID whId = UUID.randomUUID();
 
     @Mock
     private ItemRepository repository;
@@ -37,7 +39,7 @@ public class ItemManagerTest {
     @Test
     void ItemCreationTest() {
         //Assign
-        Item item = new Item("Item", 250);
+        Item item = new Item("Item", 250, this.whId);
 
         //Act
         when(repository.save(item)).thenReturn(item);
@@ -51,17 +53,17 @@ public class ItemManagerTest {
     @Test
     void ItemUpdateTest() {
         //Assign
-        Item item = new Item("Item", 250);
+        Item item = new Item("Item", 250, this.whId);
         Long itemId = 5L;
 
         //Act
         when(repository.getById(itemId)).thenReturn(item);
         when(repository.update(item)).thenReturn(item);
-        boolean updated = manager.update(itemId, item);
+        Item updated = manager.update(itemId, item);
         verify(repository).update(item);
 
         //Assert
-        assertTrue(updated);
+        assertNotNull(updated);
     }
 
 }
