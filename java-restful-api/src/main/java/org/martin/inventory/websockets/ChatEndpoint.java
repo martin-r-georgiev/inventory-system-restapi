@@ -1,8 +1,10 @@
 package org.martin.inventory.websockets;
 
 import javax.websocket.*;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -11,7 +13,7 @@ import org.martin.inventory.utils.MessageDecoder;
 import org.martin.inventory.utils.MessageEncoder;
 
 @ServerEndpoint(
-        value = "/chat",
+        value = "/chat/{username}",
         decoders = MessageDecoder.class,
         encoders = MessageEncoder.class)
 public class ChatEndpoint {
@@ -20,19 +22,19 @@ public class ChatEndpoint {
     private static Set<ChatEndpoint> chatEndpoints = new CopyOnWriteArraySet<>();
     private static HashMap<String, String> users = new HashMap<>();
 
-//    @PathParam("username") String username
-
     @OnOpen
     public void onOpen(
-            Session session) throws IOException, EncodeException {
+            Session session,
+            @PathParam("username") String username) throws IOException, EncodeException {
 
         this.session = session;
         chatEndpoints.add(this);
-        users.put(session.getId(), "Martin");
+        users.put(session.getId(), username);
 
         Message message = new Message();
-        message.setAuthor("Martin");
+        message.setAuthor(username);
         message.setContent("Connected!");
+        message.setTimestamp(Instant.now().getEpochSecond() * 1000);
         broadcast(message);
     }
 
@@ -41,6 +43,7 @@ public class ChatEndpoint {
             throws IOException, EncodeException {
 
         message.setAuthor(users.get(session.getId()));
+        message.setTimestamp(Instant.now().getEpochSecond() * 1000);
         broadcast(message);
     }
 
@@ -51,6 +54,7 @@ public class ChatEndpoint {
         Message message = new Message();
         message.setAuthor(users.get(session.getId()));
         message.setContent("Disconnected!");
+        message.setTimestamp(Instant.now().getEpochSecond() * 1000);
         broadcast(message);
     }
 
@@ -63,7 +67,7 @@ public class ChatEndpoint {
     private static void broadcast(Message message)
             throws IOException, EncodeException {
 
-        System.out.println("Broadcast: " + message.getContent());
+        System.out.println("Broadcast: " + message.getAuthor() + " Message:" + message.getContent());
 
         chatEndpoints.forEach(endpoint -> {
             synchronized (endpoint) {
