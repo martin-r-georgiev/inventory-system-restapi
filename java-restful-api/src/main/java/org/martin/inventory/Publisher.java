@@ -16,16 +16,16 @@ import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+/*
  * This class deploys CustomApplicationConfig on a Grizzly server
  */
 class Publisher {
 
-    private static final URI BASE_URI = URI.create("http://localhost:9090/inventory/");
+    private static final URI BASE_URI = URI.create("http://0.0.0.0:9090/inventory/");
 
     public static void main(String[] args) {
 
-        Server wsServer = new Server("localhost", 9000, "/ws", null, ChatEndpoint.class);
+        Server wsServer = new Server("0.0.0.0", 9000, "/ws", null, ChatEndpoint.class);
 
         try {
             CustomApplicationConfig customApplicationConfig = new CustomApplicationConfig();
