@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  mysql:
+    container_name: mysql
+    restart: always
+    image: mysql
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    command: --lower_case_table_names=1
+    volumes:
+      - backendDB:/data/db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: martin
+
+  java-restapi:
+    container_name: java-restapi
+    restart: on-failure
+    build: .
+    ports:
+      - "9090:9090"
+      - "9000:9000"
+    depends_on:
+      - "mysql"
+volumes:
+  backendDB:
