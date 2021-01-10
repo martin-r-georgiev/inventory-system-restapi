@@ -41,7 +41,7 @@ public class ItemResource {
     @RolesAllowed({"Manager", "Admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getItems() {
-        GenericEntity<List<Item>> entity = new GenericEntity<>(itemManager.getAll()) {};
+        GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(itemManager.getAll()) {};
         return Response.ok(entity).build();
     }
 
@@ -51,7 +51,7 @@ public class ItemResource {
     @RolesAllowed({"Manager", "Admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllWarehouses() {
-        GenericEntity<List<Warehouse>> entity = new GenericEntity<>(whManager.getAll()) {};
+        GenericEntity<List<Warehouse>> entity = new GenericEntity<List<Warehouse>>(whManager.getAll()) {};
         return Response.ok(entity).build();
     }
 
@@ -63,7 +63,7 @@ public class ItemResource {
     public Response getWarehouseItems(@PathParam("wh_id") String whId) {
         List<Item> items = whManager.getWarehouseItems(UUIDUtils.Dashify(whId));
         if (!items.isEmpty()) {
-            GenericEntity<List<Item>> entity = new GenericEntity<>(items) {};
+            GenericEntity<List<Item>> entity = new GenericEntity<List<Item>>(items) {};
             return Response.ok(entity).build();
         }
         else {

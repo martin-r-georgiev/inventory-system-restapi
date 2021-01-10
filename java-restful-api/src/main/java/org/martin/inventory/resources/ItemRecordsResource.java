@@ -30,7 +30,7 @@ public class ItemRecordsResource {
     public Response getItemRecords(@PathParam("wh_id") String whId, @PathParam("id") Long itemId) {
         try {
             List<ItemHistoryEntry> records = entryManager.getAllByItemAndWarehouseId(itemId, whId);
-            GenericEntity<List<ItemHistoryEntry>> entity = new GenericEntity<>(records) {};
+            GenericEntity<List<ItemHistoryEntry>> entity = new GenericEntity<List<ItemHistoryEntry>>(records) {};
             return Response.ok(entity).build();
         } catch ( IndexOutOfBoundsException e ) {
             return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
