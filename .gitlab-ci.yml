@@ -7,6 +7,7 @@ stages:
   - build
   - test
   - sonarqube
+  - deploy
 
 # Disable the Gradle daemon for Continuous Integration servers as correctness
 # is usually a priority over speed in CI environments. Using a fresh
@@ -62,3 +63,16 @@ sonarqube:
     - merge_requests
     - master
     - develop
+
+docker-deploy:
+    stage: deploy
+    image: docker
+    services:
+      - docker:dind
+    script:
+      - sudo apt-get install -y python-pip
+      - pip install docker-compose
+      - docker-compose up -d --build
+    only:
+      - master
+    when: manual

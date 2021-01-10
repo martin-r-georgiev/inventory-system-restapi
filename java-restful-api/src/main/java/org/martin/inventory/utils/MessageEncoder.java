@@ -18,14 +18,8 @@ public class MessageEncoder implements Encoder.Text<Message> {
     }
 
     @Override
-    public void init(EndpointConfig endpointConfig) {
-        // Custom initialization logic
-        // TODO: Delete method if not used
-    }
+    public void init(EndpointConfig endpointConfig) { }
 
     @Override
-    public void destroy() {
-        // Close resources
-        // TODO: Delete method if not used
-    }
+    public void destroy() { }
 }

@@ -59,10 +59,7 @@ public class ChatEndpoint {
     }
 
     @OnError
-    public void onError(Session session, Throwable throwable) {
-        // Used for error handling
-        // TODO: Delete method if not used
-    }
+    public void onError(Session session, Throwable throwable) { }
 
     private static void broadcast(Message message)
             throws IOException, EncodeException {
