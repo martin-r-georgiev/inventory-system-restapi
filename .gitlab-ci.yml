@@ -9,6 +9,8 @@ image: gradle:alpine
 # isolated from any previous builds.
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  SONAR_TOKEN: 3e92b7fd81d7b4d6e170dd57f59e67f76f753fa6
+  SONAR_HOST_URL: http://localhost:8000
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
@@ -36,3 +38,21 @@ test:
     paths:
       - build
       - .gradle
+
+sonarqube:
+  image: gradle:alpine
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+      - cd java-restful-api
+      - ./gradlew sonarqube -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - develop

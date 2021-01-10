@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'jacoco'
     id "org.sonarqube" version "3.0"
 }
 
@@ -64,7 +65,23 @@ application {
 }
 
 test {
-    // Use junit platform for unit tests
-    useJUnitPlatform()
+    useJUnitPlatform() // Use junit platform for unit tests
+
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacoco-html")
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDir = file("$buildDir/jacoco-reports")
 }
 
