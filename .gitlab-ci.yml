@@ -20,12 +20,12 @@ variables:
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
-  - chmod +x gradlew
+  - cd java-restful-api
+  - chmod +x ./gradlew
 
 build:
   stage: build
   script:
-      - cd java-restful-api
       - ./gradlew --build-cache assemble
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -37,7 +37,6 @@ build:
 test:
   stage: test
   script:
-      - cd java-restful-api
       - ./gradlew check
   cache:
     key: "$CI_COMMIT_REF_NAME"
@@ -57,7 +56,6 @@ sonarqube:
     paths:
       - .sonar/cache
   script:
-      - cd java-restful-api
       - ./gradlew jacocoTestReport sonarqube
   allow_failure: true
   only:
