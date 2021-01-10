@@ -12,7 +12,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.NotAuthorizedException;
 import java.util.List;
-import java.util.UUID;
 
 public class UserManager {
     private static final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("inventory-persistence");

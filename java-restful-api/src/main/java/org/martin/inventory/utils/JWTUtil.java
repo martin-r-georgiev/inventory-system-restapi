@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public class JWTUtil {
 
-    private final static String SECRET_KEY = "martin-secret-key";
+    private static final String SECRET_KEY = "martin-secret-key";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

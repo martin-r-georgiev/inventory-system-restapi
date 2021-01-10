@@ -1,7 +1,5 @@
 package org.martin.inventory.model;
 
-import java.util.Date;
-
 public class Message {
     private String author;
     private String content;

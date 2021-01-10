@@ -7,14 +7,10 @@ import org.martin.inventory.model.Warehouse;
 import org.martin.inventory.service.UserManager;
 import org.martin.inventory.service.WarehouseManager;
 import org.martin.inventory.utils.JWTUtil;
-import org.martin.inventory.utils.UUIDUtils;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-
-import java.net.URI;
-import java.util.UUID;
 
 import static org.martin.inventory.security.AuthenticationFilter.AUTHENTICATION_SCHEME;
 import static org.martin.inventory.security.AuthenticationFilter.isTokenBasedAuthentication;

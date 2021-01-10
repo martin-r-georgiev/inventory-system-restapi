@@ -62,7 +62,7 @@ public class ItemResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getWarehouseItems(@PathParam("wh_id") String whId) {
         List<Item> items = whManager.getWarehouseItems(UUIDUtils.Dashify(whId));
-        if (items.size() > 0) {
+        if (!items.isEmpty()) {
             GenericEntity<List<Item>> entity = new GenericEntity<>(items) {};
             return Response.ok(entity).build();
         }

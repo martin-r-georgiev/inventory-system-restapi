@@ -1,6 +1,5 @@
 package org.martin.inventory;
 
-import org.martin.inventory.model.ItemHistoryEntry;
 import org.martin.inventory.repository.HistoryEntryRepository;
 import org.martin.inventory.repository.ItemRepository;
 import org.martin.inventory.repository.UserRepository;
@@ -23,6 +22,7 @@ public class ApplicationBinder extends AbstractBinder {
         bind(UserRepository.class).to(UserRepository.class);
         bind(WarehouseRepository.class).to(WarehouseRepository.class);
         bind(HistoryEntryRepository.class).to(HistoryEntryRepository.class);
+        bind(HistoryEntryManager.class).to(HistoryEntryManager.class);
         bind(JWTUtil.class).to(JWTUtil.class);
     }
 }

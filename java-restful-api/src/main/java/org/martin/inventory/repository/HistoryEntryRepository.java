@@ -1,10 +1,8 @@
 package org.martin.inventory.repository;
 
 import org.martin.inventory.model.ItemHistoryEntry;
-import org.martin.inventory.model.Warehouse;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 public class HistoryEntryRepository implements IRepository<ItemHistoryEntry, Long>  {

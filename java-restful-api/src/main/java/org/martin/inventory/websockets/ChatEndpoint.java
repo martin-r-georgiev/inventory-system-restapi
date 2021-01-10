@@ -69,15 +69,15 @@ public class ChatEndpoint {
 
         System.out.println("Broadcast: " + message.getAuthor() + " Message:" + message.getContent());
 
-        chatEndpoints.forEach(endpoint -> {
-            synchronized (endpoint) {
+        synchronized (chatEndpoints) {
+            chatEndpoints.forEach(endpoint -> {
                 try {
                     endpoint.session.getBasicRemote().
                             sendObject(message);
                 } catch (IOException | EncodeException e) {
                     e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
     }
 }

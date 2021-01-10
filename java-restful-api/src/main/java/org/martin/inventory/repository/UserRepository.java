@@ -4,7 +4,6 @@ import org.martin.inventory.model.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.UUID;
 
 public class UserRepository implements IRepository<User, String> {
     EntityManager entityManager;

@@ -83,12 +83,11 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         if (method.isAnnotationPresent(RolesAllowed.class)) {
             // get allowed roles for this method
             RolesAllowed rolesAnnotation = method.getAnnotation(RolesAllowed.class);
-            Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAnnotation.value()));
+            Set<String> rolesSet = new HashSet<>(Arrays.asList(rolesAnnotation.value()));
             /* isUserAllowed : implement this method to check if this user has any of the roles in the rolesSet if not isUserAllowed abort the requestContext with FORBIDDEN response*/
             if (!isUserAllowed(token, rolesSet)) {
                 Response response = Response.status(Response.Status.FORBIDDEN).build();
                 requestContext.abortWith(response);
-                return;
             }
         }
     }

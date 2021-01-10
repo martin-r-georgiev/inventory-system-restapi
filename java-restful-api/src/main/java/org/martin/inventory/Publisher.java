@@ -1,17 +1,11 @@
 package org.martin.inventory;
 
-import org.glassfish.grizzly.http.server.StaticHttpHandler;
-import org.glassfish.grizzly.websockets.WebSocketEngine;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.tyrus.container.grizzly.server.WebSocketAddOn;
 import org.glassfish.tyrus.server.Server;
 import org.martin.inventory.security.CORSFilter;
 import org.martin.inventory.websockets.ChatEndpoint;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,28 +30,8 @@ class Publisher {
 
             System.out.println("Hosting resources at " + BASE_URI.toURL());
 
-            System.out.println("Try the following GET operations in your internet browser: ");
-            String[] getOperations = {BASE_URI.toURL() + "items", BASE_URI.toURL() + "items/3"};
-            for (String getOperation : getOperations) {
-                System.out.println(getOperation);
-            }
-
             // Starting websocket server
             wsServer.start();
-
-//            StaticHttpHandler staticHandler = new StaticHttpHandler("static");
-//            staticHandler.setFileCacheEnabled(false);
-//            server.getServerConfiguration().addHttpHandler(staticHandler,"/static/");
-//
-//            // Create websocket addon
-//            WebSocketAddOn webSocketAddon = new WebSocketAddOn();
-//            server.getListeners().forEach(listener -> {
-//                listener.registerAddOn(webSocketAddon);
-//            });
-//
-//            // register my websocket app
-//            ChatWebSocket webSocketApp = new ChatWebSocket();
-//            WebSocketEngine.getEngine().register("/ws", "/chat", webSocketApp);
 
             // Starting HTTP server
             server.start();
