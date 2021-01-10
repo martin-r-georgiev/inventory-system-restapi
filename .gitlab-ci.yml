@@ -14,7 +14,7 @@ stages:
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   SONAR_TOKEN: 3e92b7fd81d7b4d6e170dd57f59e67f76f753fa6
-  SONAR_HOST_URL: http://localhost:8000
+  SONAR_HOST_URL: http://0.0.0.0:8000
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
