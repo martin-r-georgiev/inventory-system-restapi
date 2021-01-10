@@ -56,7 +56,7 @@ sonarqube:
       - .sonar/cache
   script:
       - cd java-restful-api
-      - ./gradlew sonarqube -D "sonar.qualitygate.wait=true" -D "sonar.jacoco.reportPath=build/jacoco-reports"
+      - ./gradlew sonarqube -D "sonar.qualitygate.wait=true"
   allow_failure: true
   only:
     - merge_requests
