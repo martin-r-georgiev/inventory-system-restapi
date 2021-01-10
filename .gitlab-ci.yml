@@ -21,7 +21,6 @@ variables:
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
   - cd java-restful-api
-  - chmod +x ./gradlew
 
 build:
   stage: build
