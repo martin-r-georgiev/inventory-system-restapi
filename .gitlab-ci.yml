@@ -20,7 +20,7 @@ variables:
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
-  - chmod +x ./gradlew
+  - chmod +x gradlew
 
 build:
   stage: build
