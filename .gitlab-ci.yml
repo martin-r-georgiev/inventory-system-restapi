@@ -14,7 +14,7 @@ stages:
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   SONAR_TOKEN: 3e92b7fd81d7b4d6e170dd57f59e67f76f753fa6
-  SONAR_HOST_URL: http://0.0.0.0:8000
+  SONAR_HOST_URL: http://host.docker.internal:8000
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
@@ -64,13 +64,13 @@ sonarqube:
 
 docker-deploy:
     stage: deploy
-    image: docker
+    image: tmaier/docker-compose
     services:
       - docker:dind
     script:
-      - sudo apt-get install -y python-pip
-      - pip install docker-compose
-      - docker-compose up -d --build
+      - docker-compose build
+      - docker-compose down
+      - docker-compose up -d --force-recreate
     only:
       - master
     when: manual
