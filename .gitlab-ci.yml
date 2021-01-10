@@ -1,8 +1,6 @@
 # This is the Gradle build system for JVM applications
 # https://gradle.org/
 # https://github.com/gradle/gradle
-image: gradle:alpine
-
 stages:
   - build
   - test
@@ -24,6 +22,7 @@ before_script:
 
 build:
   stage: build
+  image: gradle:alpine
   script:
       - ./gradlew --build-cache assemble
   cache:
@@ -35,6 +34,7 @@ build:
 
 test:
   stage: test
+  image: gradle:alpine
   script:
       - ./gradlew check
   cache:
