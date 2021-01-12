@@ -12,17 +12,18 @@ public class Warehouse {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-//    @Column(columnDefinition = "BINARY(16)")
     @Type(type="uuid-char")
     private UUID id;
 
     private String name;
 
-    public Warehouse() {
-    }
+    public Warehouse() { }
 
     public Warehouse(String name) {
-        this.name = name;
+        if (!name.isEmpty()) this.name = name;
+        else {
+            throw new java.lang.IllegalArgumentException("Warehouse class object cannot be initialized with an empty name value");
+        }
     }
 
     public UUID getId() {
@@ -33,7 +34,9 @@ public class Warehouse {
         return name;
     }
 
-    public void setName(String name) {
+    public boolean setName(String name) {
+        if (name.isEmpty()) return false;
         this.name = name;
+        return true;
     }
 }

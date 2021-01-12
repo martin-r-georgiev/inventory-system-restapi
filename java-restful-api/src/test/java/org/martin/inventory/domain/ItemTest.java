@@ -19,15 +19,24 @@ public class ItemTest {
     int invalidQuantity = -10;
     UUID whId = UUID.randomUUID();
 
+    @Test
+    void EmptyConstructorTest() {
+        //Arrange
+        Item item = new Item();
+
+        //Assert
+        assertNotNull(item);
+    }
+
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 99, 100})
-    void InitializationTest() {
+    void InitializationTest(int quantity) {
         //Arrange
-        Item item = new Item(this.name, this.quantity, this.whId);
+        Item item = new Item(this.name, quantity, this.whId);
 
         //Assert
         assertEquals(this.name, item.getName());
-        assertEquals(this.quantity, item.getQuantity());
+        assertEquals(quantity, item.getQuantity());
     }
 
     @Test

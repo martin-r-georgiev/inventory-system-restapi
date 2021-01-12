@@ -2,7 +2,7 @@ package org.martin.inventory.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import org.martin.inventory.UserRole;
 import org.martin.inventory.model.User;
@@ -17,6 +17,15 @@ public class UserTest {
     String password = "pass";
     UserRole role = UserRole.Admin;
     UUID whId = UUID.randomUUID();
+
+    @Test
+    void EmptyConstructorTest() {
+        //Arrange
+        User user = new User();
+
+        //Assert
+        assertNotNull(user);
+    }
 
     @Test
     void InitializationTest() {
@@ -88,5 +97,18 @@ public class UserTest {
         //Assert
         assertEquals(this.password, user.getPassword());
         assertFalse(changedValue);
+    }
+
+    @ParameterizedTest
+    @EnumSource(UserRole.class)
+    void UserRoleChangeTest(UserRole newRole) {
+        //Arrange
+        User user = new User(this.username, this.password, this.role, this.whId);
+
+        //Act
+        user.setRole(newRole);
+
+        //Assert
+        assertEquals(newRole, user.getRole());
     }
 }

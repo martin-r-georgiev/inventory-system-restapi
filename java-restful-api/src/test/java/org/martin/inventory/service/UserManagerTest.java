@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.martin.inventory.UserRole;
+import org.martin.inventory.model.Warehouse;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -67,5 +68,15 @@ public class UserManagerTest {
 
         //Assert
         assertTrue(updated);
+    }
+
+    @Test
+    void UserDeleteTest() {
+        //Assign
+        User user = new User("user", "pass", UserRole.User, this.whId);
+
+        //Act
+        manager.delete(user);
+        verify(repository).delete(user);
     }
 }

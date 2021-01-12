@@ -2,7 +2,9 @@ package org.martin.inventory.service;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.martin.inventory.UserRole;
 import org.martin.inventory.model.Item;
+import org.martin.inventory.model.User;
 import org.martin.inventory.repository.ItemRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,4 +68,13 @@ public class ItemManagerTest {
         assertNotNull(updated);
     }
 
+    @Test
+    void UserDeleteTest() {
+        //Assign
+        Item item = new Item("Item", 250, this.whId);
+
+        //Act
+        manager.delete(item);
+        verify(repository).delete(item);
+    }
 }

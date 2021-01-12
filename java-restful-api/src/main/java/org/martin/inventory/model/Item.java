@@ -29,9 +29,7 @@ public class Item {
     @Type(type="uuid-char")
     private UUID warehouseId;
 
-    public Item() {
-
-    }
+    public Item() { }
 
     public Item(String name, int quantity, UUID warehouseId) {
         if(! name.isEmpty()) this.name = name;
