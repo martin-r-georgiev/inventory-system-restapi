@@ -1,6 +1,6 @@
 package org.martin.inventory.service;
 
-import org.martin.inventory.UserRole;
+import org.martin.inventory.model.UserRole;
 import org.martin.inventory.model.User;
 import org.martin.inventory.repository.UserRepository;
 

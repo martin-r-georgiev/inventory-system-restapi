@@ -1,18 +1,16 @@
-package org.martin.inventory.domain;
+package org.martin.inventory.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
-import org.martin.inventory.UserRole;
-import org.martin.inventory.model.User;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
-    //Item Prepared Data
+
+    //User Prepared Data
     String username = "test";
     String password = "pass";
     UserRole role = UserRole.Admin;

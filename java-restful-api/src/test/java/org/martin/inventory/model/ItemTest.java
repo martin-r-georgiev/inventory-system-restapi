@@ -1,13 +1,10 @@
-package org.martin.inventory.domain;
+package org.martin.inventory.model;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.martin.inventory.model.Item;
 
 import java.util.UUID;
 

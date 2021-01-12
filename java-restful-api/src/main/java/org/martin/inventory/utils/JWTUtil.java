@@ -3,7 +3,7 @@ package org.martin.inventory.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.martin.inventory.UserRole;
+import org.martin.inventory.model.UserRole;
 
 import java.util.Date;
 import java.util.HashMap;

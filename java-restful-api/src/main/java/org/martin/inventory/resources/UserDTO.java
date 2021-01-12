@@ -1,6 +1,6 @@
 package org.martin.inventory.resources;
 
-import org.martin.inventory.UserRole;
+import org.martin.inventory.model.UserRole;
 import org.martin.inventory.model.User;
 
 import java.util.*;

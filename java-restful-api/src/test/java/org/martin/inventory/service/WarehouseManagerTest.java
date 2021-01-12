@@ -36,9 +36,7 @@ public class WarehouseManagerTest {
     private WarehouseManager manager;
 
     @BeforeEach
-    private void setup() {
-        lenient().when(manager.entityManager.getTransaction()).thenReturn(transaction);
-    }
+    private void setup() { lenient().when(manager.entityManager.getTransaction()).thenReturn(transaction); }
 
     @Test
     void GetAllWarehouseTest() {
@@ -46,7 +44,7 @@ public class WarehouseManagerTest {
         List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 
         //Act
-        when(repository.getAll()).thenReturn((warehouseList));
+        when(repository.getAll()).thenReturn(warehouseList);
         manager.getAll();
         verify(repository).getAll();
     }
@@ -59,7 +57,7 @@ public class WarehouseManagerTest {
 
         //Act
         when(repository.getById(whID)).thenReturn(warehouse);
-        manager.getById((whID));
+        manager.getById(whID);
         verify(repository).getById(whID);
     }
 
@@ -71,7 +69,7 @@ public class WarehouseManagerTest {
 
         //Act
         when(repository.exists(whID)).thenReturn(true);
-        boolean exists = manager.exists((whID));
+        boolean exists = manager.exists(whID);
         verify(repository).exists(whID);
 
         //Assert

@@ -46,8 +46,6 @@ public class ItemHistoryEntry {
 
     public ItemHistoryEntry() { }
 
-    // OLD
-
     public ItemHistoryEntry(Long itemId, UUID warehouseId, int quantity, Instant date) {
         this.itemId = itemId;
         this.warehouseId = warehouseId;

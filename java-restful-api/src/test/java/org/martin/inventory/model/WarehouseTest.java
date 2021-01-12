@@ -1,14 +1,14 @@
-package org.martin.inventory.domain;
+package org.martin.inventory.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.martin.inventory.model.Warehouse;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class WarehouseTest {
+
     //Warehouse Prepared Data
     String name = "Warehouse";
 
@@ -42,6 +42,18 @@ public class WarehouseTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             Warehouse warehouse = new Warehouse("");
         });
+    }
+
+    @Test
+    void WarehouseEmptyNameChangeTest() {
+        //Arrange
+        Warehouse warehouse = new Warehouse(this.name);
+
+        //Act
+        boolean changedValue = warehouse.setName("");
+
+        //Assert
+        assertFalse(changedValue);
     }
 
     @ParameterizedTest

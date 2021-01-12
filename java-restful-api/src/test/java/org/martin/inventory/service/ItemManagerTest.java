@@ -2,9 +2,7 @@ package org.martin.inventory.service;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.martin.inventory.UserRole;
 import org.martin.inventory.model.Item;
-import org.martin.inventory.model.User;
 import org.martin.inventory.repository.ItemRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +13,8 @@ import org.mockito.Mock;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,6 +36,29 @@ public class ItemManagerTest {
     @BeforeEach
     private void setup() {
         lenient().when(manager.entityManager.getTransaction()).thenReturn(transaction);
+    }
+
+    @Test
+    void GetAllItemsTest() {
+        //Assign
+        List<Item> itemList = new ArrayList<Item>();
+
+        //Act
+        when(repository.getAll()).thenReturn(itemList);
+        manager.getAll();
+        verify(repository).getAll();
+    }
+
+    @Test
+    void GetItemByIdTest() {
+        //Assign
+        Item item = new Item("Item", 250, this.whId);
+        final Long itemId = item.getId();
+
+        //Act
+        when(repository.getById(itemId)).thenReturn(item);
+        manager.getById(itemId);
+        verify(repository).getById(itemId);
     }
 
     @Test

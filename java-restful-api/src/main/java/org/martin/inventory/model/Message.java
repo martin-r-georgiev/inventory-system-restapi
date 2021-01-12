@@ -8,20 +8,41 @@ public class Message {
     public Message() { }
 
     public Message(String author, String content, long timestamp) {
-        this.author = author;
-        this.content = content;
+
+        if(!author.isEmpty()) this.author = author;
+        else
+        {
+            throw new java.lang.IllegalArgumentException("Message class object cannot be initialized with an empty author value");
+        }
+        if(!content.isEmpty()) this.content = content;
+        else
+        {
+            throw new java.lang.IllegalArgumentException("Message class object cannot be initialized with an empty message content value");
+        }
         this.timestamp = timestamp;
     }
 
     public String getAuthor() { return author; }
 
-    public void setAuthor(String author) { this.author = author; }
+    public boolean setAuthor(String author) {
+        if (author.isEmpty()) return false;
+        this.author = author;
+        return true;
+    }
 
     public String getContent() { return content; }
 
-    public void setContent(String content) { this.content = content; }
+    public boolean setContent(String content) {
+        if (content.isEmpty()) return false;
+        this.content = content;
+        return true;
+    }
 
     public long getTimestamp() { return timestamp; }
 
-    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+    public boolean setTimestamp(long timestamp) {
+        if (timestamp < 0) return false;
+        this.timestamp = timestamp;
+        return true;
+    }
 }

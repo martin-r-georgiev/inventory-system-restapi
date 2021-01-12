@@ -1,4 +1,4 @@
-package org.martin.inventory;
+package org.martin.inventory.model;
 
 public enum UserRole {
     User(0), Manager(1), Admin(2);

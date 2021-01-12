@@ -2,7 +2,6 @@ package org.martin.inventory.model;
 
 import org.hibernate.annotations.SelectBeforeUpdate;
 import org.hibernate.annotations.Type;
-import org.martin.inventory.UserRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,16 +29,15 @@ public class User {
     @Type(type="uuid-char")
     private UUID warehouseId;
 
-    public User() {
-    }
+    public User() { }
 
     public User(String username, String password, UserRole role, UUID warehouseId) {
-        if(! username.isEmpty()) this.username = username;
+        if(!username.isEmpty()) this.username = username;
         else
         {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty name value");
         }
-        if(! password.isEmpty()) this.password = password;
+        if(!password.isEmpty()) this.password = password;
         else
         {
             throw new java.lang.IllegalArgumentException("Item class object cannot be initialized with an empty password value");
