@@ -74,9 +74,9 @@ docker-smoketest:
       - echo $CI_REGISTRY_PASSWORD | docker login -u "$CI_REGISTRY_USER" --password-stdin  $CI_REGISTRY
     script:
       - echo "Attempting to run docker image..."
-      - docker run -d -p 5555:9090 --name java-restapi dividebynone/java-restapi
+      - docker run -d --name java-restapi dividebynone/java-restapi
       - echo "Attempting to run docker smoke test..."
-      - docker run --network container:java-restapi jwilder/dockerize -wait http://host.docker.internal:5555 -timeout 120s -wait-retry-interval 5s
+      - docker run --network container:java-restapi jwilder/dockerize -wait http://localhost:8080 -timeout 120s -wait-retry-interval 5s
 
 docker-deploy:
     stage: deploy
