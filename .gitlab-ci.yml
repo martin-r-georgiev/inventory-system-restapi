@@ -76,7 +76,7 @@ docker-smoketest:
       - echo "Attempting to run docker image..."
       - docker run -d --name java-restapi dividebynone/java-restapi
       - echo "Attempting to run docker smoke test..."
-      - docker run --network container:java-restapi jwilder/dockerize -wait http://localhost:8080 -timeout 120s -wait-retry-interval 5s
+      - docker run --network container:java-restapi jwilder/dockerize -wait http://localhost:9090 -timeout 120s -wait-retry-interval 5s
 
 docker-deploy:
     stage: deploy
