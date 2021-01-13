@@ -64,13 +64,15 @@ sonarqube:
 
 docker-deploy:
     stage: deploy
-    image: tmaier/docker-compose
+    image: tiangolo/docker-with-compose
     services:
       - docker:dind
+    before_script:
+      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     script:
-      - docker-compose build
       - docker-compose down
-      - docker-compose up -d --force-recreate
+      - docker-compose build
+      - docker stack deploy -c docker-compose.yml --with-registry-auth http://host.docker.internal:5000
     only:
       - master
     when: manual
