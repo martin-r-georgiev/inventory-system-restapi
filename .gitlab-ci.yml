@@ -68,11 +68,10 @@ docker-deploy:
     services:
       - docker:dind
     before_script:
-      - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+      - echo $CI_BUILD_TOKEN | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
     script:
-      - docker-compose down
-      - docker-compose build
-      - docker stack deploy -c docker-compose.yml --with-registry-auth http://host.docker.internal:5000
+      - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+      - docker push "$CI_REGISTRY_IMAGE"
     only:
       - master
     when: manual
