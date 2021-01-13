@@ -15,6 +15,7 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
   SONAR_TOKEN: 3e92b7fd81d7b4d6e170dd57f59e67f76f753fa6
   SONAR_HOST_URL: http://host.docker.internal:8000
+  DOCKER_TLS_CERTDIR: ""
 
 before_script:
   - set GRADLE_USER_HOME=`pwd`/.gradle
