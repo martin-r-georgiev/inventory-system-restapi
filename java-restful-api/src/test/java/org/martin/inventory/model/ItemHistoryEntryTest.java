@@ -18,7 +18,7 @@ public class ItemHistoryEntryTest {
     Instant date = Instant.now();
 
     @Test
-    void EmptyConstructorTest() {
+    void emptyConstructorTest() {
         //Arrange
         ItemHistoryEntry entry = new ItemHistoryEntry();
 
@@ -27,7 +27,7 @@ public class ItemHistoryEntryTest {
     }
 
     @Test
-    void InitializationTest() {
+    void initializationTest() {
         //Arrange
         ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, this.quantity, this.date);
 
@@ -39,7 +39,7 @@ public class ItemHistoryEntryTest {
     }
 
     @Test
-    void InitializationInvalidQuantityTest() {
+    void initializationInvalidQuantityTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, -123, this.date);
         });
@@ -47,7 +47,7 @@ public class ItemHistoryEntryTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 10, 1400})
-    void EntryQuantityChangeTest(int newQuantity) {
+    void entryQuantityChangeTest(int newQuantity) {
         //Arrange
         ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, this.quantity, this.date);
 
@@ -60,7 +60,7 @@ public class ItemHistoryEntryTest {
     }
 
     @Test
-    void InvalidEntryQuantityChangeTest() {
+    void invalidEntryQuantityChangeTest() {
         //Arrange
         ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, this.quantity, this.date);
         final int newQuantity = -1;
@@ -74,7 +74,7 @@ public class ItemHistoryEntryTest {
     }
 
     @Test
-    void EntryDateChangeTest() {
+    void entryDateChangeTest() {
         //Arrange
         ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, this.quantity, this.date);
         final Instant newDate = Instant.now();

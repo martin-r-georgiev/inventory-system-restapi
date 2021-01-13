@@ -39,7 +39,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void GetAllItemsTest() {
+    void getAllItemsTest() {
         //Assign
         List<Item> itemList = new ArrayList<Item>();
 
@@ -50,7 +50,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void GetItemByIdTest() {
+    void getItemByIdTest() {
         //Assign
         Item item = new Item("Item", 250, this.whId);
         final Long itemId = item.getId();
@@ -62,7 +62,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void ItemCreationTest() {
+    void itemCreationTest() {
         //Assign
         Item item = new Item("Item", 250, this.whId);
 
@@ -76,7 +76,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void ItemUpdateTest() {
+    void itemUpdateTest() {
         //Assign
         Item item = new Item("Item", 250, this.whId);
         Long itemId = 5L;
@@ -92,7 +92,7 @@ public class ItemManagerTest {
     }
 
     @Test
-    void UserDeleteTest() {
+    void itemDeleteTest() {
         //Assign
         Item item = new Item("Item", 250, this.whId);
 

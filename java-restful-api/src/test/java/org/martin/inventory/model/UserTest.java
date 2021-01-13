@@ -17,7 +17,7 @@ public class UserTest {
     UUID whId = UUID.randomUUID();
 
     @Test
-    void EmptyConstructorTest() {
+    void emptyConstructorTest() {
         //Arrange
         User user = new User();
 
@@ -26,7 +26,7 @@ public class UserTest {
     }
 
     @Test
-    void InitializationTest() {
+    void initializationTest() {
         //Arrange
         User user = new User(this.username, this.password, this.role, this.whId);
 
@@ -36,35 +36,35 @@ public class UserTest {
     }
 
     @Test
-    void InitializationNullUsernameTest() {
+    void initializationNullUsernameTest() {
         assertThrows(NullPointerException.class, () -> {
             User user = new User(null, this.password, this.role, this.whId);
         });
     }
 
     @Test
-    void InitializationEmptyUsernameTest() {
+    void initializationEmptyUsernameTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             User user = new User("", this.password, this.role, this.whId);
         });
     }
 
     @Test
-    void InitializationNullPasswordTest() {
+    void initializationNullPasswordTest() {
         assertThrows(NullPointerException.class, () -> {
             User user = new User(this.username, null, this.role, this.whId);
         });
     }
 
     @Test
-    void InitializationEmptyPasswordTest() {
+    void initializationEmptyPasswordTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             User user = new User(this.username, "", this.role, this.whId);
         });
     }
 
     @Test
-    void UserPasswordChangeTest() {
+    void userPasswordChangeTest() {
         //Arrange
         User user = new User(this.username, this.password, this.role, this.whId);
         final String newPassword = "NewPassword";
@@ -77,7 +77,7 @@ public class UserTest {
     }
 
     @Test
-    void UserNullPasswordChangeTest() {
+    void userNullPasswordChangeTest() {
         assertThrows(NullPointerException.class, () -> {
             User user = new User(this.username, this.password, this.role, this.whId);
             user.setPassword(null);
@@ -85,7 +85,7 @@ public class UserTest {
     }
 
     @Test
-    void UserEmptyPasswordChangeTest() {
+    void userEmptyPasswordChangeTest() {
         //Arrange
         User user = new User(this.username, this.password, this.role, this.whId);
 
@@ -99,7 +99,7 @@ public class UserTest {
 
     @ParameterizedTest
     @EnumSource(UserRole.class)
-    void UserRoleChangeTest(UserRole newRole) {
+    void userRoleChangeTest(UserRole newRole) {
         //Arrange
         User user = new User(this.username, this.password, this.role, this.whId);
 

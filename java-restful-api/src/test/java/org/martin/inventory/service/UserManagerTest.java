@@ -42,7 +42,7 @@ public class UserManagerTest {
     }
 
     @Test
-    void GetAllUsersTest() {
+    void getAllUsersTest() {
         //Assign
         List<User> userList = new ArrayList<User>();
 
@@ -53,7 +53,7 @@ public class UserManagerTest {
     }
 
     @Test
-    void GetUserByUsernameTest() {
+    void getUserByUsernameTest() {
         //Assign
         User user = new User("user", "pass", UserRole.User, this.whId);
         final String username = user.getUsername();
@@ -65,7 +65,7 @@ public class UserManagerTest {
     }
 
     @Test
-    void UserCreationTest() {
+    void userCreationTest() {
         //Assign
         User user = new User("user", "pass", UserRole.User, this.whId);
 
@@ -79,7 +79,7 @@ public class UserManagerTest {
     }
 
     @Test
-    void UserUpdateTest() {
+    void userUpdateTest() {
         //Assign
         User user = new User("user", "pass", UserRole.User, this.whId);
         final String userUsername = "user";
@@ -95,7 +95,7 @@ public class UserManagerTest {
     }
 
     @Test
-    void UserDeleteTest() {
+    void userDeleteTest() {
         //Assign
         User user = new User("user", "pass", UserRole.User, this.whId);
 

@@ -17,7 +17,7 @@ public class ItemTest {
     UUID whId = UUID.randomUUID();
 
     @Test
-    void EmptyConstructorTest() {
+    void emptyConstructorTest() {
         //Arrange
         Item item = new Item();
 
@@ -27,7 +27,7 @@ public class ItemTest {
 
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 99, 100})
-    void InitializationTest(int quantity) {
+    void initializationTest(int quantity) {
         //Arrange
         Item item = new Item(this.name, quantity, this.whId);
 
@@ -37,28 +37,28 @@ public class ItemTest {
     }
 
     @Test
-    void InitializationNullNameTest() {
+    void initializationNullNameTest() {
         assertThrows(NullPointerException.class, () -> {
             Item item = new Item(null, this.quantity, this.whId);
         });
     }
 
     @Test
-    void InitializationEmptyNameTest() {
+    void initializationEmptyNameTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             Item item = new Item("", this.quantity, this.whId);
         });
     }
 
     @Test
-    void InitializationInvalidQuantityTest() {
+    void initializationInvalidQuantityTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             Item item = new Item(this.name, this.invalidQuantity, this.whId);
         });
     }
 
     @Test
-    void ItemNameChangeTest() {
+    void itemNameChangeTest() {
         //Arrange
         Item item = new Item(this.name, this.quantity, this.whId);
         final String newName = "NewItemName";
@@ -71,7 +71,7 @@ public class ItemTest {
     }
 
     @Test
-    void ItemNullNameChangeTest() {
+    void itemNullNameChangeTest() {
         assertThrows(NullPointerException.class, () -> {
             Item item = new Item(this.name, this.quantity, this.whId);
             item.setName(null);
@@ -79,7 +79,7 @@ public class ItemTest {
     }
 
     @Test
-    void ItemEmptyNameChangeTest() {
+    void itemEmptyNameChangeTest() {
         //Arrange
         Item item = new Item(this.name, this.quantity, this.whId);
 
@@ -93,7 +93,7 @@ public class ItemTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 10, 530, 33240})
-    void ItemQuantityChangeTest(int newQuantity) {
+    void itemQuantityChangeTest(int newQuantity) {
         //Arrange
         Item item = new Item(this.name, this.quantity, this.whId);
 
@@ -107,7 +107,7 @@ public class ItemTest {
 
     @ParameterizedTest
     @ValueSource(ints = {-1, -100, -3430})
-    void ItemQuantityOutOfRangeTest(int newQuantity) {
+    void itemQuantityOutOfRangeTest(int newQuantity) {
         //Arrange
         Item item = new Item(this.name, this.quantity, this.whId);
 

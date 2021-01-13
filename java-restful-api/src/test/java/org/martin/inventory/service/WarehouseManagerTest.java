@@ -41,7 +41,7 @@ public class WarehouseManagerTest {
     private void setup() { lenient().when(manager.entityManager.getTransaction()).thenReturn(transaction); }
 
     @Test
-    void GetAllWarehouseTest() {
+    void getAllWarehouseTest() {
         //Assign
         List<Warehouse> warehouseList = new ArrayList<Warehouse>();
 
@@ -52,7 +52,7 @@ public class WarehouseManagerTest {
     }
 
     @Test
-    void GetWarehouseByIdTest() {
+    void getWarehouseByIdTest() {
         //Assign
         Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whID = warehouse.getId();
@@ -64,7 +64,7 @@ public class WarehouseManagerTest {
     }
 
     @Test
-    void WarehouseExistsTest() {
+    void warehouseExistsTest() {
         //Assign
         Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whID = warehouse.getId();
@@ -79,7 +79,7 @@ public class WarehouseManagerTest {
     }
 
     @Test
-    void WarehouseCreationTest() {
+    void warehouseCreationTest() {
         //Assign
         Warehouse warehouse = new Warehouse(this.warehouseName);
 
@@ -93,7 +93,7 @@ public class WarehouseManagerTest {
     }
 
     @Test
-    void WarehouseUpdateTest() {
+    void warehouseUpdateTest() {
         //Assign
         Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whId = warehouse.getId();
@@ -109,7 +109,7 @@ public class WarehouseManagerTest {
     }
 
     @Test
-    void WarehouseDeleteTest() {
+    void warehouseDeleteTest() {
         //Assign
         Warehouse warehouse = new Warehouse(this.warehouseName);
 

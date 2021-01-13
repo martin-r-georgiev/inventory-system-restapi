@@ -17,7 +17,7 @@ public class MessageTest {
     final long timestamp = Instant.now().getEpochSecond() * 1000;
 
     @Test
-    void EmptyConstructorTest() {
+    void emptyConstructorTest() {
         //Arrange
         Message message = new Message();
 
@@ -26,7 +26,7 @@ public class MessageTest {
     }
 
     @Test
-    void InitializationTest() {
+    void initializationTest() {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -37,28 +37,28 @@ public class MessageTest {
     }
 
     @Test
-    void InitializationNullAuthorTest() {
+    void initializationNullAuthorTest() {
         assertThrows(NullPointerException.class, () -> {
             Message message = new Message(null, this.content, this.timestamp);
         });
     }
 
     @Test
-    void InitializationNullContentTest() {
+    void initializationNullContentTest() {
         assertThrows(NullPointerException.class, () -> {
             Message message = new Message(this.author, null, this.timestamp);
         });
     }
 
     @Test
-    void InitializationEmptyAuthorTest() {
+    void initializationEmptyAuthorTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             Message message = new Message("", this.content, this.timestamp);
         });
     }
 
     @Test
-    void InitializationEmptyContentTest() {
+    void initializationEmptyContentTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             Message message = new Message(this.author, "", this.timestamp);
         });
@@ -66,7 +66,7 @@ public class MessageTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"George","Michael", "John Doe"})
-    void MessageAuthorChangeTest(String newAuthor) {
+    void messageAuthorChangeTest(String newAuthor) {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -79,7 +79,7 @@ public class MessageTest {
     }
 
     @Test
-    void MessageEmptyAuthorChangeTest() {
+    void messageEmptyAuthorChangeTest() {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -93,7 +93,7 @@ public class MessageTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Warehouse","12134", "Multi-worded Name"})
-    void MessageContentChangeTest(String newMessageContent) {
+    void messageContentChangeTest(String newMessageContent) {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -106,7 +106,7 @@ public class MessageTest {
     }
 
     @Test
-    void MessageEmptyContentChangeTest() {
+    void messageEmptyContentChangeTest() {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -120,7 +120,7 @@ public class MessageTest {
 
     @ParameterizedTest
     @ValueSource(longs = {34546, 235034503, 123257678})
-    void MessageTimestampChangeTest(long newTimestamp) {
+    void messageTimestampChangeTest(long newTimestamp) {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
 
@@ -133,7 +133,7 @@ public class MessageTest {
     }
 
     @Test
-    void InvalidMessageTimestampTest() {
+    void invalidMessageTimestampTest() {
         //Arrange
         Message message = new Message(this.author, this.content, this.timestamp);
         final long newTimestamp = -4;

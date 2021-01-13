@@ -13,7 +13,7 @@ public class WarehouseTest {
     String name = "Warehouse";
 
     @Test
-    void EmptyConstructorTest() {
+    void emptyConstructorTest() {
         //Arrange
         Warehouse warehouse = new Warehouse();
 
@@ -22,7 +22,7 @@ public class WarehouseTest {
     }
 
     @Test
-    void InitializationTest() {
+    void initializationTest() {
         //Arrange
         Warehouse warehouse = new Warehouse(this.name);
 
@@ -31,21 +31,21 @@ public class WarehouseTest {
     }
 
     @Test
-    void InitializationNullNameTest() {
+    void initializationNullNameTest() {
         assertThrows(NullPointerException.class, () -> {
             Warehouse warehouse = new Warehouse(null);
         });
     }
 
     @Test
-    void InitializationEmptyNameTest() {
+    void initializationEmptyNameTest() {
         assertThrows(IllegalArgumentException.class, () -> {
             Warehouse warehouse = new Warehouse("");
         });
     }
 
     @Test
-    void WarehouseEmptyNameChangeTest() {
+    void warehouseEmptyNameChangeTest() {
         //Arrange
         Warehouse warehouse = new Warehouse(this.name);
 
@@ -58,7 +58,7 @@ public class WarehouseTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Warehouse","12134", "Multi-worded Name"})
-    void WarehouseNameChangeTest(String newName) {
+    void warehouseNameChangeTest(String newName) {
         //Arrange
         Warehouse warehouse = new Warehouse(this.name);
 

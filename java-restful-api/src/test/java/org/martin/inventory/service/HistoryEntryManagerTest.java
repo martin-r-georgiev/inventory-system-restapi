@@ -39,7 +39,7 @@ public class HistoryEntryManagerTest {
     private void setup() { lenient().when(manager.entityManager.getTransaction()).thenReturn(transaction); }
 
     @Test
-    void GetAllEntriesTest() {
+    void getAllEntriesTest() {
         //Assign
         List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
 
@@ -50,7 +50,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void GetEntryByIdTest() {
+    void getEntryByIdTest() {
         //Assign
         ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
         final Long entryId = entry.getId();
@@ -62,7 +62,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void GetEntriesByItemIdTest() {
+    void getEntriesByItemIdTest() {
         //Assign
         List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
         final Long itemId = 123L;
@@ -74,7 +74,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void GetEntriesByWarehouseIdTest() {
+    void getEntriesByWarehouseIdTest() {
         //Assign
         List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
         final String whId = UUID.randomUUID().toString();
@@ -86,7 +86,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void GetEntriesByItemAndWarehouseIdTest() {
+    void getEntriesByItemAndWarehouseIdTest() {
         //Assign
         List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
         final Long itemId = 123L;
@@ -99,7 +99,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void HistoryEntryCreationTest() {
+    void historyEntryCreationTest() {
         //Assign
         ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
 
@@ -113,7 +113,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void HistoryEntryUpdateTest() {
+    void historyEntryUpdateTest() {
         //Assign
         ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
         final Long entryId = entry.getId();
@@ -129,7 +129,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void HistoryEntryDeleteTest() {
+    void historyEntryDeleteTest() {
         //Assign
         ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
 
@@ -139,7 +139,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void HistoryEntryDeleteByItemIdTest() {
+    void historyEntryDeleteByItemIdTest() {
         //Assign
         final Long itemId = 123L;
 
@@ -149,7 +149,7 @@ public class HistoryEntryManagerTest {
     }
 
     @Test
-    void HistoryEntryDeleteByWarehouseIdTest() {
+    void historyEntryDeleteByWarehouseIdTest() {
         //Assign
         final String whId = UUID.randomUUID().toString();
 
