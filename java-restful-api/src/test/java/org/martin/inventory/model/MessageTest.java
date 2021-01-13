@@ -38,28 +38,28 @@ public class MessageTest {
 
     @Test
     void InitializationNullAuthorTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             Message message = new Message(null, this.content, this.timestamp);
         });
     }
 
     @Test
     void InitializationNullContentTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             Message message = new Message(this.author, null, this.timestamp);
         });
     }
 
     @Test
     void InitializationEmptyAuthorTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Message message = new Message("", this.content, this.timestamp);
         });
     }
 
     @Test
     void InitializationEmptyContentTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Message message = new Message(this.author, "", this.timestamp);
         });
     }

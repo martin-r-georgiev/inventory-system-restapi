@@ -58,11 +58,8 @@ public class ChatEndpoint {
         broadcast(message);
     }
 
-    @OnError
-    public void onError(Session session, Throwable throwable) { }
-
     private static void broadcast(Message message)
-            throws IOException, EncodeException {
+            throws EncodeException, IOException {
 
         System.out.println("Broadcast: " + message.getAuthor() + " Message:" + message.getContent());
 

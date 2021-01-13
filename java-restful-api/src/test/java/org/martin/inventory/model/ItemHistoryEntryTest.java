@@ -40,7 +40,7 @@ public class ItemHistoryEntryTest {
 
     @Test
     void InitializationInvalidQuantityTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             ItemHistoryEntry entry = new ItemHistoryEntry(this.itemId, this.whId, -123, this.date);
         });
     }

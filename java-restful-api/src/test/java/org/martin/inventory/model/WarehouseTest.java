@@ -32,14 +32,14 @@ public class WarehouseTest {
 
     @Test
     void InitializationNullNameTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             Warehouse warehouse = new Warehouse(null);
         });
     }
 
     @Test
     void InitializationEmptyNameTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Warehouse warehouse = new Warehouse("");
         });
     }

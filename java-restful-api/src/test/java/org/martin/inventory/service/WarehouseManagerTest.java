@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
@@ -22,6 +21,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class WarehouseManagerTest {
+
+    //Warehouse Prepared Data
+    final String warehouseName = "Test Warehouse";
 
     @Mock
     private WarehouseRepository repository;
@@ -52,7 +54,7 @@ public class WarehouseManagerTest {
     @Test
     void GetWarehouseByIdTest() {
         //Assign
-        Warehouse warehouse = new Warehouse("Warehouse");
+        Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whID = warehouse.getId();
 
         //Act
@@ -64,7 +66,7 @@ public class WarehouseManagerTest {
     @Test
     void WarehouseExistsTest() {
         //Assign
-        Warehouse warehouse = new Warehouse("Warehouse");
+        Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whID = warehouse.getId();
 
         //Act
@@ -79,7 +81,7 @@ public class WarehouseManagerTest {
     @Test
     void WarehouseCreationTest() {
         //Assign
-        Warehouse warehouse = new Warehouse("Warehouse");
+        Warehouse warehouse = new Warehouse(this.warehouseName);
 
         //Act
         when(repository.save(warehouse)).thenReturn(warehouse);
@@ -93,7 +95,7 @@ public class WarehouseManagerTest {
     @Test
     void WarehouseUpdateTest() {
         //Assign
-        Warehouse warehouse = new Warehouse("Warehouse");
+        Warehouse warehouse = new Warehouse(this.warehouseName);
         final UUID whId = warehouse.getId();
 
         //Act
@@ -109,7 +111,7 @@ public class WarehouseManagerTest {
     @Test
     void WarehouseDeleteTest() {
         //Assign
-        Warehouse warehouse = new Warehouse("Warehouse");
+        Warehouse warehouse = new Warehouse(this.warehouseName);
 
         //Act
         manager.delete(warehouse);

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.martin.inventory.model.ItemHistoryEntry;
-import org.martin.inventory.model.Warehouse;
 import org.martin.inventory.repository.HistoryEntryRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -142,9 +141,7 @@ public class HistoryEntryManagerTest {
     @Test
     void HistoryEntryDeleteByItemIdTest() {
         //Assign
-        ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
         final Long itemId = 123L;
-
 
         //Act
         manager.deleteByItemId(itemId);
@@ -154,7 +151,6 @@ public class HistoryEntryManagerTest {
     @Test
     void HistoryEntryDeleteByWarehouseIdTest() {
         //Assign
-        ItemHistoryEntry entry = new ItemHistoryEntry(123L, UUID.randomUUID(), 10, Instant.now());
         final String whId = UUID.randomUUID().toString();
 
         //Act

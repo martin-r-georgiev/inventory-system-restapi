@@ -37,28 +37,28 @@ public class UserTest {
 
     @Test
     void InitializationNullUsernameTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             User user = new User(null, this.password, this.role, this.whId);
         });
     }
 
     @Test
     void InitializationEmptyUsernameTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             User user = new User("", this.password, this.role, this.whId);
         });
     }
 
     @Test
     void InitializationNullPasswordTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             User user = new User(this.username, null, this.role, this.whId);
         });
     }
 
     @Test
     void InitializationEmptyPasswordTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             User user = new User(this.username, "", this.role, this.whId);
         });
     }
@@ -78,7 +78,7 @@ public class UserTest {
 
     @Test
     void UserNullPasswordChangeTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             User user = new User(this.username, this.password, this.role, this.whId);
             user.setPassword(null);
         });

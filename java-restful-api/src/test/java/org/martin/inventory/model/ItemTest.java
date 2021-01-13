@@ -38,21 +38,21 @@ public class ItemTest {
 
     @Test
     void InitializationNullNameTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             Item item = new Item(null, this.quantity, this.whId);
         });
     }
 
     @Test
     void InitializationEmptyNameTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Item item = new Item("", this.quantity, this.whId);
         });
     }
 
     @Test
     void InitializationInvalidQuantityTest() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             Item item = new Item(this.name, this.invalidQuantity, this.whId);
         });
     }
@@ -72,7 +72,7 @@ public class ItemTest {
 
     @Test
     void ItemNullNameChangeTest() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             Item item = new Item(this.name, this.quantity, this.whId);
             item.setName(null);
         });
