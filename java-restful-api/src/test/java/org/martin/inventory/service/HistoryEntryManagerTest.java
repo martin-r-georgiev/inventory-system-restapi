@@ -41,7 +41,7 @@ public class HistoryEntryManagerTest {
     @Test
     void getAllEntriesTest() {
         //Assign
-        List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
+        List<ItemHistoryEntry> entryList = new ArrayList<>();
 
         //Act
         when(repository.getAll()).thenReturn(entryList);
@@ -64,7 +64,7 @@ public class HistoryEntryManagerTest {
     @Test
     void getEntriesByItemIdTest() {
         //Assign
-        List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
+        List<ItemHistoryEntry> entryList = new ArrayList<>();
         final Long itemId = 123L;
 
         //Act
@@ -76,7 +76,7 @@ public class HistoryEntryManagerTest {
     @Test
     void getEntriesByWarehouseIdTest() {
         //Assign
-        List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
+        List<ItemHistoryEntry> entryList = new ArrayList<>();
         final String whId = UUID.randomUUID().toString();
 
         //Act
@@ -88,7 +88,7 @@ public class HistoryEntryManagerTest {
     @Test
     void getEntriesByItemAndWarehouseIdTest() {
         //Assign
-        List<ItemHistoryEntry> entryList = new ArrayList<ItemHistoryEntry>();
+        List<ItemHistoryEntry> entryList = new ArrayList<>();
         final Long itemId = 123L;
         final String whId = UUID.randomUUID().toString();
 

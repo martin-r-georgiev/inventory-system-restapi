@@ -1,5 +1,6 @@
 package org.martin.inventory.resources;
 
+import com.google.common.hash.Hashing;
 import org.martin.inventory.model.UserRole;
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.User;
@@ -11,6 +12,8 @@ import org.martin.inventory.utils.JWTUtil;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
+import java.nio.charset.StandardCharsets;
 
 import static org.martin.inventory.security.AuthenticationFilter.AUTHENTICATION_SCHEME;
 import static org.martin.inventory.security.AuthenticationFilter.isTokenBasedAuthentication;
@@ -101,6 +104,11 @@ public class UserResource {
             if (data.getWarehouseId() == null) {
                 throw new IllegalArgumentException("Failed to create user account. Please provide a warehouse identifier.");
             }
+
+            // Hashing password before persisting it to the database
+            String hashedPassword  = Hashing.sha256().hashString(data.getPassword(), StandardCharsets.UTF_8).toString();
+            data.setPassword(hashedPassword);
+
             userManager.add(data.GetUserEntity(userRole));
             return Response.status(Response.Status.CREATED).entity("User account successfully created.").build();
         } catch (Exception ex) {

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserManagerTest {
-    UUID whId = UUID.randomUUID();
+    private final UUID whId = UUID.randomUUID();
 
     @Mock
     private UserRepository repository;
@@ -44,7 +44,7 @@ public class UserManagerTest {
     @Test
     void getAllUsersTest() {
         //Assign
-        List<User> userList = new ArrayList<User>();
+        List<User> userList = new ArrayList<>();
 
         //Act
         when(repository.getAll()).thenReturn(userList);

@@ -18,7 +18,8 @@ services:
   java-restapi:
     container_name: java-restapi
     restart: on-failure
-    image: dividebynone/java-restapi
+    # image: dividebynone/java-restapi
+    build: .
     ports:
       - "9090:9090"
       - "9000:9000"

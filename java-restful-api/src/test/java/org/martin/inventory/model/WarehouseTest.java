@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class WarehouseTest {
 
     //Warehouse Prepared Data
-    String name = "Warehouse";
+    private final String name = "Warehouse";
 
     @Test
     void emptyConstructorTest() {

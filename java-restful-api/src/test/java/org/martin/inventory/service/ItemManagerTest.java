@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public class ItemManagerTest {
-    UUID whId = UUID.randomUUID();
+    private final UUID whId = UUID.randomUUID();
 
     @Mock
     private ItemRepository repository;
@@ -41,7 +41,7 @@ public class ItemManagerTest {
     @Test
     void getAllItemsTest() {
         //Assign
-        List<Item> itemList = new ArrayList<Item>();
+        List<Item> itemList = new ArrayList<>();
 
         //Act
         when(repository.getAll()).thenReturn(itemList);

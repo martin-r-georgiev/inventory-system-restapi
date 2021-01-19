@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class MessageTest {
 
     //Message Prepared Data
-    final String author = "Martin";
-    final String content = "Message text";
-    final long timestamp = Instant.now().getEpochSecond() * 1000;
+    private final String author = "Martin";
+    private final String content = "Message text";
+    private final long timestamp = Instant.now().getEpochSecond() * 1000;
 
     @Test
     void emptyConstructorTest() {

@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest {
 
     //User Prepared Data
-    String username = "test";
-    String password = "pass";
-    UserRole role = UserRole.Admin;
-    UUID whId = UUID.randomUUID();
+    private final String username = "test";
+    private final String password = "pass";
+    private final UserRole role = UserRole.Admin;
+    private final UUID whId = UUID.randomUUID();
 
     @Test
     void emptyConstructorTest() {

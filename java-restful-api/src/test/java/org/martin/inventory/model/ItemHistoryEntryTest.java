@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ItemHistoryEntryTest {
 
     //Item Prepared Data
-    Long itemId = 1234L;
-    UUID whId = UUID.randomUUID();
-    int quantity = 100;
-    Instant date = Instant.now();
+    private final Long itemId = 1234L;
+    private final UUID whId = UUID.randomUUID();
+    private final int quantity = 100;
+    private final Instant date = Instant.now();
 
     @Test
     void emptyConstructorTest() {

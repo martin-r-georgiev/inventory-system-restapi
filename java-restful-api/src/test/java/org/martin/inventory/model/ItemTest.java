@@ -11,10 +11,10 @@ import java.util.UUID;
 public class ItemTest {
 
     //Item Prepared Data
-    String name = "Item";
-    int quantity = 100;
-    int invalidQuantity = -10;
-    UUID whId = UUID.randomUUID();
+    private final String name = "Item";
+    private final int quantity = 100;
+    private final int invalidQuantity = -10;
+    private final UUID whId = UUID.randomUUID();
 
     @Test
     void emptyConstructorTest() {

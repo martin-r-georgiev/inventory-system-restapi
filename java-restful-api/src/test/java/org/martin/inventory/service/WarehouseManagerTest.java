@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 public class WarehouseManagerTest {
 
     //Warehouse Prepared Data
-    final String warehouseName = "Test Warehouse";
+    private final String warehouseName = "Test Warehouse";
 
     @Mock
     private WarehouseRepository repository;
@@ -43,7 +43,7 @@ public class WarehouseManagerTest {
     @Test
     void getAllWarehouseTest() {
         //Assign
-        List<Warehouse> warehouseList = new ArrayList<Warehouse>();
+        List<Warehouse> warehouseList = new ArrayList<>();
 
         //Act
         when(repository.getAll()).thenReturn(warehouseList);

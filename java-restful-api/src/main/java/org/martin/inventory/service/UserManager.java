@@ -1,5 +1,6 @@
 package org.martin.inventory.service;
 
+import com.google.common.hash.Hashing;
 import org.martin.inventory.model.UserRole;
 import org.martin.inventory.model.User;
 import org.martin.inventory.repository.UserRepository;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.ws.rs.NotAuthorizedException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class UserManager {
@@ -64,9 +66,13 @@ public class UserManager {
     // Authentication
 
     public UserRole authenticate(String username, String password) {
+
+        // SHA-256 Hashing
+        String hashedPassword  = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+
         Query query = entityManager.createQuery("FROM User WHERE username = :user AND password = :pass", User.class);
         query.setParameter("user", username);
-        query.setParameter("pass", password);
+        query.setParameter("pass", hashedPassword);
         query.setFirstResult(0).setMaxResults(1);
         User result = (User) query.getSingleResult();
 
