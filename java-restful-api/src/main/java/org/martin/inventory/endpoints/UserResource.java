@@ -1,6 +1,8 @@
-package org.martin.inventory.resources;
+package org.martin.inventory.endpoints;
 
 import com.google.common.hash.Hashing;
+import org.martin.inventory.DTOs.RegistrationDTO;
+import org.martin.inventory.DTOs.UserDTO;
 import org.martin.inventory.model.UserRole;
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.User;

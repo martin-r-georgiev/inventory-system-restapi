@@ -11,7 +11,7 @@ public class CustomApplicationConfig extends ResourceConfig
 {
     public CustomApplicationConfig()
     {
-        packages("org.martin.inventory.resources"); // Finding all resource endpoint classes
+        packages("org.martin.inventory.endpoints"); // Finding all resource endpoint classes
 
         register(new ApplicationBinder());
         register(AuthenticationFilter.class);

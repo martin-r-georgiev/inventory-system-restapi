@@ -1,4 +1,4 @@
-package org.martin.inventory.resources;
+package org.martin.inventory.DTOs;
 
 import org.martin.inventory.model.Item;
 

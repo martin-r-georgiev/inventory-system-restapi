@@ -1,5 +1,6 @@
-package org.martin.inventory.resources;
+package org.martin.inventory.endpoints;
 
+import org.martin.inventory.DTOs.ItemDTO;
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.Item;
 import org.martin.inventory.model.ItemHistoryEntry;

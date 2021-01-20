@@ -1,5 +1,7 @@
-package org.martin.inventory.resources;
+package org.martin.inventory.endpoints;
 
+import org.martin.inventory.DTOs.ItemStockReportDTO;
+import org.martin.inventory.DTOs.QuantityReportDTO;
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.ItemHistoryEntry;
 import org.martin.inventory.service.HistoryEntryManager;
@@ -65,6 +67,39 @@ public class ItemRecordsResource {
                 try {
                     List<QuantityReportDTO> reportList = entryManager.getWeeklyQuantityReport(whId);
                     GenericEntity<List<QuantityReportDTO>> entity = new GenericEntity<List<QuantityReportDTO>>(reportList) {};
+                    response = Response.ok(entity).build();
+                } catch ( IndexOutOfBoundsException e ) {
+                    response = Response.status(Response.Status.NOT_FOUND).entity("The requested warehouse was not found.").build();
+                }
+                asyncResponse.resume(response);
+            }
+        }).start();
+    }
+
+    @GET
+    @Secured
+    @Path("/instock/{wh_id}")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
+    public void getWarehouseItemsInStock(@PathParam("wh_id") String whId, @Suspended final AsyncResponse asyncResponse) {
+        asyncResponse.setTimeoutHandler(new TimeoutHandler() {
+
+            @Override
+            public void handleTimeout(AsyncResponse asyncResponse) {
+                asyncResponse.resume(Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                        .entity("Operation timed out.").build());
+            }
+        });
+        asyncResponse.setTimeout(30, TimeUnit.SECONDS);
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Response response;
+                try {
+                    List<ItemStockReportDTO> reportList = entryManager.getItemsInStockReport(whId);
+                    GenericEntity<List<ItemStockReportDTO>> entity = new GenericEntity<List<ItemStockReportDTO>>(reportList) {};
                     response = Response.ok(entity).build();
                 } catch ( IndexOutOfBoundsException e ) {
                     response = Response.status(Response.Status.NOT_FOUND).entity("The requested warehouse was not found.").build();

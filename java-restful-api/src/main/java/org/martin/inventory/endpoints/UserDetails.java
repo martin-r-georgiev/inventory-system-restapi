@@ -1,4 +1,6 @@
-package org.martin.inventory.resources;
+package org.martin.inventory.endpoints;
+
+import org.martin.inventory.DTOs.UserDTO;
 
 import java.util.Objects;
 import java.util.UUID;

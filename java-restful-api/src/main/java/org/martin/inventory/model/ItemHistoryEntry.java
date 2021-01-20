@@ -43,7 +43,6 @@ public class ItemHistoryEntry {
     @NotNull
     private Instant date;
 
-
     public ItemHistoryEntry() { }
 
     public ItemHistoryEntry(Long itemId, UUID warehouseId, int quantity, Instant date) {

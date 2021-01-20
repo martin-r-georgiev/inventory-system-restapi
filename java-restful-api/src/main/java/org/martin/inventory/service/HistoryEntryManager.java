@@ -1,19 +1,18 @@
 package org.martin.inventory.service;
 
-import org.hibernate.Criteria;
 import org.hibernate.query.Query;
+import org.martin.inventory.DTOs.ItemStockReportDTO;
 import org.martin.inventory.model.ItemHistoryEntry;
 import org.martin.inventory.repository.HistoryEntryRepository;
-import org.martin.inventory.resources.QuantityReportDTO;
+import org.martin.inventory.DTOs.QuantityReportDTO;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class HistoryEntryManager {
     private static final EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory("inventory-persistence");
@@ -80,9 +79,21 @@ public class HistoryEntryManager {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_YEAR, -7); // Last 7 days
         Instant pastWeek = c.getTime().toInstant();
-        
-        Query<QuantityReportDTO> query = (Query<QuantityReportDTO>) entityManager.createQuery("SELECT NEW org.martin.inventory.resources.QuantityReportDTO(Date(ihe.date), SUM(ihe.quantity)) FROM ItemHistoryEntry ihe WHERE ihe.date >= :past GROUP BY DATE(ihe.date)")
+
+        UUID convertedId = UUID.fromString(whId);
+
+        Query<QuantityReportDTO> query = (Query<QuantityReportDTO>) entityManager.createQuery("SELECT NEW org.martin.inventory.DTOs.QuantityReportDTO(Date(ihe.date), SUM(ihe.quantity)) FROM ItemHistoryEntry ihe WHERE ihe.date >= :past AND ihe.warehouseId = :whId GROUP BY DATE(ihe.date)")
+                .setParameter("whId", convertedId)
                 .setParameter("past", pastWeek);
+        return query.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<ItemStockReportDTO> getItemsInStockReport(String whId) {
+        UUID convertedId = UUID.fromString(whId);
+
+        Query<ItemStockReportDTO> query = (Query<ItemStockReportDTO>) entityManager.createQuery("SELECT NEW org.martin.inventory.DTOs.ItemStockReportDTO(SUM(CASE WHEN quantity > 0 THEN 1 ELSE 0 END), SUM(CASE WHEN quantity = 0 THEN 1 ELSE 0 END)) FROM Item WHERE warehouseId = :whId")
+                .setParameter("whId", convertedId);
         return query.list();
     }
 }
