@@ -75,8 +75,9 @@ application {
 }
 
 test {
-    useJUnitPlatform() // Use junit platform for unit tests
+    exclude '**/AcceptanceTest.class'
 
+    useJUnitPlatform() // Use junit platform for unit tests
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
