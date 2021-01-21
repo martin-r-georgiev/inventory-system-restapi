@@ -6,6 +6,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -36,12 +38,26 @@ public class AcceptanceTest {
     }
 
     @Test
-    public void verifyGitHubTitle() {
+    public void verifyApplicationUserLogin() throws InterruptedException {
         try {
-            driver.get("https://google.com/ncr");
-            driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
-            WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h3>div")));
-            System.out.println(firstResult.getAttribute("textContent"));
+            driver.get("http://localhost:3000/");
+            //driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
+            //WebElement loginButton = driver.findElement(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a"));
+            WebElement loginButton = wait.until(presenceOfElementLocated(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a")));
+            Actions action = new Actions(driver);
+            action.moveToElement(loginButton).click().perform();
+
+            WebElement usernameTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-username")));
+            usernameTextbox.sendKeys("admin");
+
+            WebElement passwordTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-password")));
+            passwordTextbox.sendKeys("admin");
+
+            driver.findElement(By.id("login-submit")).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > div > div > div > img")));
+
+            driver.navigate().refresh();
         } finally {
             teardown();
         }
