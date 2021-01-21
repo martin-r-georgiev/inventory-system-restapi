@@ -75,16 +75,14 @@ application {
 }
 
 test {
+    exclude '**/AcceptanceTest.class'
+
     useJUnitPlatform() // Use junit platform for unit tests
 
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-task pipelineTests(type: Test) {
-    description = 'Tests to be executed by the CI/CD pipeline'
-
-    exclude '**/AcceptanceTest.class'
-
+task allTests(type: Test) {
     useJUnitPlatform()
 
     finalizedBy jacocoTestReport // report is always generated after tests run
@@ -108,7 +106,8 @@ jacocoTestReport {
                               '**/inventory/security/**',
                               '**/inventory/annotations/**',
                               '**/inventory/endpoints/**',
-                              '**/inventory/DTOs/**'])
+                              '**/inventory/DTOs/**',
+                              '**/AcceptanceTest**'])
         }))
     }
 }
