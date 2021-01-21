@@ -75,9 +75,18 @@ application {
 }
 
 test {
+    useJUnitPlatform() // Use junit platform for unit tests
+
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+task pipelineTests(type: Test) {
+    description = 'Tests to be executed by the CI/CD pipeline'
+
     exclude '**/AcceptanceTest.class'
 
-    useJUnitPlatform() // Use junit platform for unit tests
+    useJUnitPlatform()
+
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
@@ -97,7 +106,9 @@ jacocoTestReport {
                               '**/CustomApplicationConfig**',
                               '**/ApplicationBinder**',
                               '**/inventory/security/**',
-                              '**/inventory/annotations/**'])
+                              '**/inventory/annotations/**',
+                              '**/inventory/endpoints/**',
+                              '**/inventory/DTOs/**'])
         }))
     }
 }

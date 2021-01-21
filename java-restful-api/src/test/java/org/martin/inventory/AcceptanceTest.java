@@ -2,7 +2,6 @@ package org.martin.inventory;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -38,10 +37,9 @@ public class AcceptanceTest {
     }
 
     @Test
-    public void verifyApplicationUserLogin() throws InterruptedException {
+    public void verifyApplicationUserLogin() {
         try {
             driver.get("http://localhost:3000/");
-            //driver.findElement(By.name("q")).sendKeys("cheese" + Keys.ENTER);
             //WebElement loginButton = driver.findElement(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a"));
             WebElement loginButton = wait.until(presenceOfElementLocated(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a")));
             Actions action = new Actions(driver);
@@ -58,6 +56,119 @@ public class AcceptanceTest {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > div > div > div > img")));
 
             driver.navigate().refresh();
+        } finally {
+            teardown();
+        }
+    }
+
+    @Test
+    public void addItemToWarehouseTest() {
+        try {
+            driver.get("http://localhost:3000/");
+
+            // Log in
+            WebElement loginButton = wait.until(presenceOfElementLocated(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a")));
+            Actions action = new Actions(driver);
+            action.moveToElement(loginButton).click().perform();
+
+            WebElement usernameTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-username")));
+            usernameTextbox.sendKeys("admin");
+
+            WebElement passwordTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-password")));
+            passwordTextbox.sendKeys("admin");
+
+            driver.findElement(By.id("login-submit")).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > div > div > div > img")));
+
+            driver.navigate().refresh();
+
+            // Dashboard navigation
+
+            wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
+            driver.findElement(By.id("additem-button")).click();
+
+            WebElement nameTextbox = wait.until(presenceOfElementLocated(By.id("newitem-name")));
+            nameTextbox.sendKeys("New Item");
+
+            WebElement quantityTextbox = wait.until(presenceOfElementLocated(By.id("newitem-quantity")));
+            quantityTextbox.sendKeys("50");
+
+            driver.findElement(By.id("newitem-submit")).click();
+        } finally {
+            teardown();
+        }
+    }
+
+    @Test
+    public void editItemFromWarehouseTest() throws InterruptedException {
+        try {
+            driver.get("http://localhost:3000/");
+
+            // Log in
+            WebElement loginButton = wait.until(presenceOfElementLocated(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a")));
+            Actions action = new Actions(driver);
+            action.moveToElement(loginButton).click().perform();
+
+            WebElement usernameTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-username")));
+            usernameTextbox.sendKeys("admin");
+
+            WebElement passwordTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-password")));
+            passwordTextbox.sendKeys("admin");
+
+            driver.findElement(By.id("login-submit")).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > div > div > div > img")));
+
+            driver.navigate().refresh();
+
+            // Dashboard navigation
+
+            wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
+            driver.findElement(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-info.btn-sm.mr-2")).click();
+
+            WebElement nameTextbox = wait.until(presenceOfElementLocated(By.id("edititem-name")));
+            nameTextbox.sendKeys("Updated Item");
+
+            WebElement quantityTextbox = wait.until(presenceOfElementLocated(By.id("edititem-quantity")));
+            quantityTextbox.sendKeys("1234");
+
+            driver.findElement(By.id("edititem-submit")).click();
+
+            Thread.sleep(5000);
+        } finally {
+            teardown();
+        }
+    }
+
+    @Test
+    public void deleteItemFromWarehouseTest() {
+        try {
+            driver.get("http://localhost:3000/");
+
+            // Log in
+            WebElement loginButton = wait.until(presenceOfElementLocated(By.cssSelector("#navbarCollapse > ul > li:nth-child(1) > a")));
+            Actions action = new Actions(driver);
+            action.moveToElement(loginButton).click().perform();
+
+            WebElement usernameTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-username")));
+            usernameTextbox.sendKeys("admin");
+
+            WebElement passwordTextbox = wait.until(presenceOfElementLocated(By.id("login-textinput-password")));
+            passwordTextbox.sendKeys("admin");
+
+            driver.findElement(By.id("login-submit")).click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#root > div > div > div > div > img")));
+
+            driver.navigate().refresh();
+
+            // Dashboard navigation
+
+            wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
+            driver.findElement(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-danger.btn-sm")).click();
+
+            wait.until(presenceOfElementLocated(By.id("deleteitem-submit"))).click();
         } finally {
             teardown();
         }
