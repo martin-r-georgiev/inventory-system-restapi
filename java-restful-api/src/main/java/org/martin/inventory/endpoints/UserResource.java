@@ -3,6 +3,7 @@ package org.martin.inventory.endpoints;
 import com.google.common.hash.Hashing;
 import org.martin.inventory.DTOs.RegistrationDTO;
 import org.martin.inventory.DTOs.UserDTO;
+import org.martin.inventory.DTOs.UserDetails;
 import org.martin.inventory.model.UserRole;
 import org.martin.inventory.annotations.Secured;
 import org.martin.inventory.model.User;
@@ -75,7 +76,7 @@ public class UserResource {
         final String username = jwtUtil.extractUsername(authHeader.substring(AUTHENTICATION_SCHEME.length()).trim());
         User user = userManager.getByUsername(username);
         if(user == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("The requested item was not found.").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("The requested user was not found.").build();
         } else {
             UserDetails output = new UserDetails(user.getUsername(), user.getWarehouseId(), user.getRole().toString());
             return Response.ok(output).build();

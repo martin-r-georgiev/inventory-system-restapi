@@ -26,6 +26,10 @@ dependencies {
     implementation group: 'org.glassfish.jersey.bundles', name: 'jaxrs-ri', version: '2.+'
     implementation group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '2.+'
 
+    // Jersey Test Framework
+    // testImplementation group: 'org.glassfish.jersey.test-framework', name: 'jersey-test-framework-core', version: '2.33'
+    // testImplementation group: 'org.glassfish.jersey.test-framework.providers', name: 'jersey-test-framework-provider-grizzly2', version: '2.33'
+
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.+'
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
@@ -44,6 +48,9 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.6.0'
     // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '3.6.0'
+
+    // Selenium
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 
     // Hibernate (JPA)
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.14.Final'
