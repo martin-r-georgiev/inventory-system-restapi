@@ -86,7 +86,7 @@ public class AcceptanceTest {
             // Dashboard navigation
 
             wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
-            driver.findElement(By.id("additem-button")).click();
+            wait.until(presenceOfElementLocated(By.id("additem-button"))).click();
 
             WebElement nameTextbox = wait.until(presenceOfElementLocated(By.id("newitem-name")));
             nameTextbox.sendKeys("New Item");
@@ -101,7 +101,7 @@ public class AcceptanceTest {
     }
 
     @Test
-    public void editItemFromWarehouseTest() throws InterruptedException {
+    public void editItemFromWarehouseTest() {
         try {
             driver.get("http://localhost:3000/");
 
@@ -125,7 +125,7 @@ public class AcceptanceTest {
             // Dashboard navigation
 
             wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
-            driver.findElement(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-info.btn-sm.mr-2")).click();
+            wait.until(presenceOfElementLocated(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-info.btn-sm.mr-2"))).click();
 
             WebElement nameTextbox = wait.until(presenceOfElementLocated(By.id("edititem-name")));
             nameTextbox.sendKeys("Updated Item");
@@ -134,8 +134,6 @@ public class AcceptanceTest {
             quantityTextbox.sendKeys("1234");
 
             driver.findElement(By.id("edititem-submit")).click();
-
-            Thread.sleep(5000);
         } finally {
             teardown();
         }
@@ -166,7 +164,7 @@ public class AcceptanceTest {
             // Dashboard navigation
 
             wait.until(presenceOfElementLocated(By.id("dashboard-button"))).click();
-            driver.findElement(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-danger.btn-sm")).click();
+            wait.until(presenceOfElementLocated(By.cssSelector("#root > div > section > div.container-fluid.m-3 > div > div > div:nth-child(1) > div > div > div.col-4.col-sm-3.d-flex.justify-content-end > button.btn.btn.btn-outline-danger.btn-sm"))).click();
 
             wait.until(presenceOfElementLocated(By.id("deleteitem-submit"))).click();
         } finally {
